@@ -12,7 +12,7 @@ const recipeSchema = new Schema (
     },  
     image : {
         type:String,
-        default: "",  //TODO NOS FALTA URL 
+        default: "",  //TODO NOS FALTA URL SEGUN EL TIPO DE CATEGORIA DE PLATO  
     },
     ingredients: [""],
     preparationtime: Number, 
@@ -22,7 +22,7 @@ const recipeSchema = new Schema (
     },
     category:{
         type: String,
-        enum:["Ensalada", "Carne", "Pescado", "Postres", "Sopa", "Arroces", "Guisos"]
+        enum:["Ensalada", "Carne", "Pescado", "Sopa", "Arroces", "Guisos", "Postres"]
     },
     creator: {
         type: Schema.Type.ObjectId,
