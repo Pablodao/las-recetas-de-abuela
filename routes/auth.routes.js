@@ -5,9 +5,8 @@ const bcrypt = require("bcryptjs");
 //* SIGNUP
 
 // GET "/auth/signup" => Render signup view
-
 router.get("/signup", (req, res, next) => {
-  res.render("auth/signup.hbs");
+  res.render("./auth/signup.hbs");
 });
 
 // POST "/auth/signup" => Creates the user in the DB and redirect
@@ -44,16 +43,16 @@ router.post("/signup", async (req, res, next) => {
 
   try {
     // GC User already exist
-    const foundUser = await User.findOne({ emai });
+    const foundUser = await User.findOne({ email });
     if (foundUser !== null) {
-      res.render("auth/signup.hbs", {
+      res.render("./auth/signup.hbs", {
         errorMessage: "Correo electrónico en uso",
       });
     }
     // GC Username already in use
     const foundUserByUsername = await User.findOne({ username });
     if (foundUserByUsername !== null) {
-      res.render("auth/signup.hbs", {
+      res.render("./auth/signup.hbs", {
         errorMessage: "El nombre de usuario ya se encuentra en uso",
       });
     }
@@ -74,5 +73,13 @@ router.post("/signup", async (req, res, next) => {
     next(err);
   }
 });
+
+
+
+router.get("/login", (req, res, next) =>{
+  res.render("./auth/login.hbs")
+})
+
+
 
 module.exports = router;
