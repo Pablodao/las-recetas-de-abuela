@@ -11,6 +11,17 @@
 
    <body>
 
+      <nav>
+         <a href="/">Inicio</a>
+         {{#if isUserActive}}
+            <a href="/user/myprofile">Mi perfil</a>
+            <a href="/user/myfavourites">Mis recetas</a>
+            <a href="/auth/logout"></a>
+         {{else}}
+         <a href="/auth/signup">Regristrate</a>
+         <a href="/auth/login">Acceso</a>
+         {{/if}}
+      </nav>
       {{{body}}}
 
       <script src="/js/script.js"></script>

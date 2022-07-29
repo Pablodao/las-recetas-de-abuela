@@ -75,7 +75,7 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-//* SIGNUP
+//* LOG IN
 
 // GET "/auth/login" => Renders view with login/access form
 router.get("/login", (req, res, next) => {
@@ -113,11 +113,21 @@ router.post("/login", async (req, res, next) => {
       username: foundUser.username,
     };
     req.session.save(() => {
-      res.redirect("/home");
+      res.redirect("/");
     });
   } catch (err) {
     next(err);
   }
 });
+
+//* LOG OUT
+//GET "/auth/logout" => user can log out
+router.get("/logout", (req, res, next) =>{
+  req.session.destroy(() =>{
+    res.redirect("/")
+  })
+})
+
+
 
 module.exports = router;
