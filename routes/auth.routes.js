@@ -74,12 +74,16 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
+//* SIGNUP
 
-
+// GET "/auth/login" => Render login view
 router.get("/login", (req, res, next) =>{
   res.render("./auth/login.hbs")
 })
 
+// POST "/auth/login" => Render login view
+router.post("/login", async (req, res, next) =>{
 
+})
 
 module.exports = router;
