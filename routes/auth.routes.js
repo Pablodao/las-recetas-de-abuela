@@ -13,7 +13,7 @@ router.get("/signup", (req, res, next) => {
 // POST "/auth/signup" => Creates the user in the DB and redirect
 router.post("/signup", async (req, res, next) => {
   const { username, email, password } = req.body;
-
+  console.log("REQBODY SIGNUP",req.body)
   //* GC
   // Empty input
   if (username === "" || email === "" || password === "") {
@@ -86,34 +86,39 @@ router.get("/login", (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   const { access, password } = req.body;
   //Empty input
+  console.log("REQ.BODY",req.body)
   if (access === "" || password === "") {
-    res.render("auth/login.hbs", {
+    res.render("./auth/login.hbs", {
       errorMessage: "Por favor, rellene todos los campos",
     });
     return;
   }
+  console.log("Fuera del try")
   try {
     //Find user
     const foundUser = await User.find({
       $or: [{ username: access }, { email: access }],
     });
     if (foundUser === null) {
-      res.render("auth/login.hbs", { errorMessage: "Usuario no encontrado" });
+      res.render("./auth/login.hbs", { errorMessage: "Usuario no encontrado" });
       return;
     }
+    console.log(foundUser)
     //valid password
-    const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+    const isPasswordValid = await bcrypt.compare(password, foundUser.password)
+    console.log(password)
     if (isPasswordValid === false) {
-      res.render("auth/login.hbs", { errorMessage: "Constraseña inválida" });
+      res.render("./auth/login.hbs", { errorMessage: "Constraseña inválida" });
       return;
     }
+    console.log("Dentro del try")
     req.session.user = {
       _id: foundUser._id,
       email: foundUser.email,
       username: foundUser.username,
     };
     req.session.save(() => {
-      res.redirect("/");
+       res.redirect("/user");
     });
   } catch (err) {
     next(err);

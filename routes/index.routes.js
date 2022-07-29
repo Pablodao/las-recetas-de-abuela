@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 router.use((req, res, next) =>{
-  if(req.session.user === underfined){
+  if(req.session.user === undefined){
     res.locals.isUserActive = false; 
   }else {
     res.locals.isUserActive = true;
