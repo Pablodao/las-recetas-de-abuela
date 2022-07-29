@@ -1,5 +1,14 @@
 const router = require("express").Router();
 
+router.use((req, res, next) =>{
+  if(req.session.user === underfined){
+    res.locals.isUserActive = false; 
+  }else {
+    res.locals.isUserActive = true;
+  }
+  next()
+})
+
 /* GET home page */
 router.get("/", (req, res, next) => {
   res.render("index");

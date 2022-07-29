@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User.model.js");
 const bcrypt = require("bcryptjs");
 
+
 //* SIGNUP
 
 // GET "/auth/signup" => Render signup view
@@ -76,14 +77,47 @@ router.post("/signup", async (req, res, next) => {
 
 //* SIGNUP
 
-// GET "/auth/login" => Render login view
-router.get("/login", (req, res, next) =>{
-  res.render("./auth/login.hbs")
-})
+// GET "/auth/login" => Renders view with login/access form
+router.get("/login", (req, res, next) => {
+  res.render("./auth/login.hbs");
+});
 
-// POST "/auth/login" => Render login view
-router.post("/login", async (req, res, next) =>{
-
-})
+// POST "/auth/login" => Allows access to the user - User Validation
+router.post("/login", async (req, res, next) => {
+  const { access, password } = req.body;
+  //Empty input
+  if (access === "" || password === "") {
+    res.render("auth/login.hbs", {
+      errorMessage: "Por favor, rellene todos los campos",
+    });
+    return;
+  }
+  try {
+    //Find user
+    const foundUser = await User.find({
+      $or: [{ username: access }, { email: access }],
+    });
+    if (foundUser === null) {
+      res.render("auth/login.hbs", { errorMessage: "Usuario no encontrado" });
+      return;
+    }
+    //valid password
+    const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+    if (isPasswordValid === false) {
+      res.render("auth/login.hbs", { errorMessage: "Constraseña inválida" });
+      return;
+    }
+    req.session.user = {
+      _id: foundUser._id,
+      email: foundUser.email,
+      username: foundUser.username,
+    };
+    req.session.save(() => {
+      res.redirect("/home");
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
