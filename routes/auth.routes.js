@@ -96,14 +96,14 @@ router.post("/login", async (req, res, next) => {
   console.log("Fuera del try")
   try {
     //Find user
-    const foundUser = await User.find({
+    const foundUser = await User.findOne({
       $or: [{ username: access }, { email: access }],
     });
     if (foundUser === null) {
       res.render("./auth/login.hbs", { errorMessage: "Usuario no encontrado" });
       return;
     }
-    console.log(foundUser)
+   
     //valid password
     const isPasswordValid = await bcrypt.compare(password, foundUser.password)
     console.log(password)
