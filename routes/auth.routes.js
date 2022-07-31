@@ -118,7 +118,7 @@ router.post("/login", async (req, res, next) => {
       username: foundUser.username,
     };
     req.session.save(() => {
-       res.redirect("/user");
+       res.redirect("/");
     });
   } catch (err) {
     next(err);

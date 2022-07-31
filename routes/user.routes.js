@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const {isLoggedIn} = require("../middlewares/auth.js")
 
-router.get("/profile" , isLoggedIn, (req, res, next) => {
-    res.render("index.hbs")
+router.get("/myprofile" , isLoggedIn, (req, res, next) => {
+    res.render("user/my-profile.hbs")
 })
 
 
