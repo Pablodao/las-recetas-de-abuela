@@ -25,7 +25,7 @@ const recipeSchema = new Schema (
         enum:["Ensalada", "Carne", "Pescado", "Sopa", "Arroces", "Guisos", "Postres"]
     },
     creator: {
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     }
   },
@@ -38,5 +38,4 @@ const recipeSchema = new Schema (
 
 
 const Recipe = model("Recipe", recipeSchema);
-
 module.exports = Recipe;
