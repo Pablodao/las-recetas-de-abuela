@@ -13,9 +13,11 @@
 
       <nav>
          <a href="/">Inicio</a>
+         <a href="/recipes">Recetas</a>
          {{#if isUserActive}}
             <a href="/user/myprofile">Mi perfil</a>
             <a href="/user/myfavourites">Mis recetas</a>
+            <a href="/recipes/create">Crea tu receta</a>
             <a href="/auth/logout">Cerrar Sesión</a>
          {{else}}
          <a href="/auth/signup">Regristrate</a>
