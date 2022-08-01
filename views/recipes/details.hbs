@@ -3,8 +3,8 @@
 <p>{{selectedRecipe.instructions}}</p>
 <img src="{{selectedRecipe.image}}" alt="Imagen de la receta ">
 
-<form action="/recipes/{{selectedRecipe._id}}" method="POST">
-  <label for="ingredient">Agregar ingredientes: </label>
-  <input type="text" name="ingredient" />
+<form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
+  <label for="ingredients">Agregar ingredientes: </label>
+  <input type="text" name="ingredients" />
   <button>Añadir</button>
 </form>

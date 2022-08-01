@@ -46,9 +46,29 @@ router.get("/:recipeId", async (req, res, next) => {
   }
 });
 
-//POST => 
+//POST "/recipes/:recipeId/ingredients" => Adds a new ingredient and redirect
+router.post("/:recipeId/ingredients", async (req, res, next) => {
+  const { recipeId } = req.params;
+  const { ingredients } = req.body;
+  try {
+    await Recipe.findByIdAndUpdate(recipeId, { ingredients });
+    res.redirect(`/recipes/${recipeId}`);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // GET "/recipes/:recipeId/edit" => Render edit recipe form view
+router.get("/:recipeId/edit", async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+  } catch (err) {
+    next(err);
+  }
+
+  res.render("recipes/edit");
+});
+
 // POST "/:recipeId/edit" => Edit a recipe and redirect
 
 // POST "/recipes/:recipeId/delete" => Delete a recipe from the DB
