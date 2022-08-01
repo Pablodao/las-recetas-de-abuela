@@ -69,7 +69,7 @@ router.post("/:recipeId/ingredients", async (req, res, next) => {
 // GET "/recipes/:recipeId/edit" => Render edit recipe form view
 router.get("/:recipeId/edit", async (req, res, next) => {
   const { recipeId } = req.params;
-
+    console.log(recipeId)
   try {
     const selectedRecipe = await Recipe.findById(recipeId);
     res.render("recipes/edit", { selectedRecipe });
@@ -79,7 +79,7 @@ router.get("/:recipeId/edit", async (req, res, next) => {
 });
 
 // POST "/:recipeId/edit" => Edit a recipe and redirect
-router.post("/:recipesId/edit", async (req, res, next) => {
+router.post("/:recipeId/edit", async (req, res, next) => {
   const { recipeId } = req.params;
   const {
     name,
@@ -91,7 +91,7 @@ router.post("/:recipesId/edit", async (req, res, next) => {
     category,
   } = req.body;
   try {
-   const updatedRecipe =  await Recipe.findByIdAndUpdate(recipeId, {
+  await Recipe.findByIdAndUpdate(recipeId, {
       name,
       instructions,
       image,
@@ -100,8 +100,8 @@ router.post("/:recipesId/edit", async (req, res, next) => {
       difficulty,
       category,
     });
-    console.log(updatedRecipe)
-    res.redirect(`/recipes`);
+    
+    res.redirect(`/recipes/${recipeId}`);
   } catch (err) {
     next(err);
   }
