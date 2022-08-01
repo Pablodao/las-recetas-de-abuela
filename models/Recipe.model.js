@@ -18,11 +18,11 @@ const recipeSchema = new Schema (
     preparationtime: Number, 
     difficulty: {
         type: String,
-        enum:["baja", "media", "alta"]
+        enum:["Baja", "Media", "Alta"]
     },
     category:{
         type: String,
-        enum:["Ensalada", "Carne", "Pescado", "Sopa", "Arroces", "Guisos", "Postres"]
+        enum:["Ensalada", "Carne", "Pescado", "Sopa", "Arroces","Pastas", "Guisos", "Postres"]
     },
     creator: {
         type: Schema.Types.ObjectId,

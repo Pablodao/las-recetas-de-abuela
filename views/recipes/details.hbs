@@ -1,0 +1,10 @@
+
+<h1>{{selectedRecipe.name}}</h1>
+<p>{{selectedRecipe.instructions}}</p>
+<img src="{{selectedRecipe.image}}" alt="Imagen de la receta ">
+
+<form action="/recipes/{{selectedRecipe._id}}" method="POST">
+  <label for="ingredient">Agregar ingredientes: </label>
+  <input type="text" name="ingredient" />
+  <button>Añadir</button>
+</form>
