@@ -18,14 +18,22 @@ router.get("/create", (req, res, next) => {
 });
 //POST "/recipes/create" => Creates a recipe in the DB and redirect
 router.post("/create", async (req, res, next) => {
-  const { name, instructions, image, ingredients, difficulty, category } =
-    req.body;
+  const {
+    name,
+    instructions,
+    image,
+    ingredients,
+    preparationtime,
+    difficulty,
+    category,
+  } = req.body;
   try {
     const newRecipe = await Recipe.create({
       name,
       instructions,
       image,
       ingredients,
+      preparationtime,
       difficulty,
       category,
     });
@@ -46,31 +54,58 @@ router.get("/:recipeId", async (req, res, next) => {
   }
 });
 
-// //POST "/recipes/:recipeId/ingredients" => Adds a new ingredient and redirect
-// router.post("/:recipeId/ingredients", async (req, res, next) => {
-//   const { recipeId } = req.params;
-//   const { ingredients } = req.body;
-//   try {
-//     await Recipe.findByIdAndUpdate(recipeId, { ingredients });
-//     res.redirect(`/recipes/${recipeId}`);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+//POST "/recipes/:recipeId/ingredients" => Adds a new ingredient and redirect
+router.post("/:recipeId/ingredients", async (req, res, next) => {
+  const { recipeId } = req.params;
+  const { ingredients } = req.body;
+  try {
+    await Recipe.findByIdAndUpdate(recipeId, { ingredients });
+    res.redirect(`/recipes/${recipeId}`);
+  } catch (err) {
+    next(err);
+  }
+});
 
-// // GET "/recipes/:recipeId/edit" => Render edit recipe form view
-// router.get("/:recipeId/edit", async (req, res, next) => {
-//   const { recipeId } = req.params;
-//   try {
-//   } catch (err) {
-//     next(err);
-//   }
+// GET "/recipes/:recipeId/edit" => Render edit recipe form view
+router.get("/:recipeId/edit", async (req, res, next) => {
+  const { recipeId } = req.params;
 
-//   res.render("recipes/edit");
-// });
+  try {
+    const selectedRecipe = await Recipe.findById(recipeId);
+    res.render("recipes/edit", { selectedRecipe });
+  } catch (err) {
+    next(err);
+  }
+});
 
 // POST "/:recipeId/edit" => Edit a recipe and redirect
-
+router.post("/:recipesId/edit", async (req, res, next) => {
+  const { recipeId } = req.params;
+  const {
+    name,
+    instructions,
+    image,
+    ingredients,
+    preparationtime,
+    difficulty,
+    category,
+  } = req.body;
+  try {
+   const updatedRecipe =  await Recipe.findByIdAndUpdate(recipeId, {
+      name,
+      instructions,
+      image,
+      ingredients,
+      preparationtime,
+      difficulty,
+      category,
+    });
+    console.log(updatedRecipe)
+    res.redirect(`/recipes`);
+  } catch (err) {
+    next(err);
+  }
+});
 // POST "/recipes/:recipeId/delete" => Delete a recipe from the DB
 
 module.exports = router;

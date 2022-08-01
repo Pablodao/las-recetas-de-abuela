@@ -1,0 +1,34 @@
+<h1>Edita tu receta</h1>
+
+<form action="" method="POST">
+
+  <label for="name">Nombre de la Receta: </label>
+  <input type="text" name="name" value="{{selectedRecipe.name}}"/>
+  <br />
+  <label for="instructions">Instrucciones</label>
+  <input type="text" name="instructions" value="{{selectedRecipe.instructions}}"/>
+  <br />
+  <label for="category">Categoria</label>
+  <select name="category" value="{{selectedRecipe.category}}">
+    <option value="Ensalada">Ensalada</option>
+    <option value="Carne">Carne</option>
+    <option value="Pescado">Pescado</option>
+    <option value="Sopa">Sopa</option>
+    <option value="Pastas">Pastas</option>
+    <option value="Arroces">Arroces</option>
+    <option value="Guisos">Guisos</option>
+    <option value="Postres">Postres</option>
+  </select>
+  <br />
+  <label for="difficulty">Dificultad</label>
+  <select name="difficulty" value="{{selectedRecipe.difficulty}}">
+    <option value="Baja">Baja</option>
+    <option value="Media">Media</option>
+    <option value="Alta">Alta</option>
+  </select>
+  <br />
+<label for="preparationtime">Tiempo (en minutos):</label>
+  <input type="text" name="preparationtime" value="{{selectedRecipe.preparationtime}}" />
+  <br />
+  <button>Editar</button>
+</form>
