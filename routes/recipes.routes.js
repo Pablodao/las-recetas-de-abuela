@@ -4,9 +4,8 @@ const Recipe = require("../models/Recipe.model.js");
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {
   try {
-    const recipeList = await Recipe.find().select(
-      "name, image, difficulty, category"
-    );
+    const recipeList = await Recipe.find();
+
     res.render("recipes/list.hbs", { recipeList });
   } catch (err) {
     next(err);
@@ -38,14 +37,16 @@ router.post("/create", async (req, res, next) => {
 
 // GET "/recipes/:recipeId" => Render view with all the recipe details
 router.get("/:recipeId", async (req, res, next) => {
-    const {recipeId} = req.params 
-    try {
-        const selectedRecipe = await Recipe.findById(recipeId)
-        res.render("recipes/details.hbs", selectedRecipe)
-    } catch (err) {
-        next(err)
-    }
-})
+  const { recipeId } = req.params;
+  try {
+    const selectedRecipe = await Recipe.findById(recipeId);
+    res.render("recipes/details.hbs", { selectedRecipe });
+  } catch (err) {
+    next(err);
+  }
+});
+
+//POST => 
 
 // GET "/recipes/:recipeId/edit" => Render edit recipe form view
 // POST "/:recipeId/edit" => Edit a recipe and redirect

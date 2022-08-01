@@ -2,7 +2,7 @@
 
 {{#each recipeList}}
 <img src="{{this.image}}" alt="foto de la receta">
-<p>{{this.name}}</p>
+<a href="/recipes/{{this._id}}">{{this.name}}</a>
 <p>{{this.difficulty}}</p>
 <p>{{this.category}}</p>
 {{/each}}
