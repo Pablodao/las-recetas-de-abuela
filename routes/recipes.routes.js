@@ -106,6 +106,16 @@ router.post("/:recipeId/edit", async (req, res, next) => {
     next(err);
   }
 });
-// POST "/recipes/:recipeId/delete" => Delete a recipe from the DB
+// POST "/recipes/:recipeId/delete" => Delete a recipe from the DB and redirect 
+router.post("/:recipeId/delete", async (req, res, next) => {
+    const{recipeId} = req.params
+    try {
+        await Recipe.findByIdAndDelete(recipeId)
+        res.redirect("/recipes")
+    } catch (err) {
+        next(err)
+    }
+})
+
 
 module.exports = router;
