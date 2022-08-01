@@ -9,7 +9,8 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default:"/images/avatar2.jpg"  
+      enum:["/images/avatar1.jpg", "/images/avatar2.jpg", "/images/avatar3.jpg", "/images/avatar4.jpg"],
+      default:"/images/avatar1.jpg"  
     },
     password: {
       type: String,

@@ -2,8 +2,15 @@
 
 <form action="/user/myprofile/edit" method="POST">
     <label for="avatar">Avatar</label>
-
-    <img src="{{profileUser.avatar}}" alt="avatar" width="100px">
+    <select name="avatar">
+    <option value="/images/avatar1.jpg">
+        <a href="/images/avatar1.jpg"></a>
+    </option>
+    <option value="/images/avatar2.jpg">Avatar 2</option>
+    <option value="/images/avatar3.jpg">Avatar 3</option>
+    <option value="/images/avatar4.jpg">Avatar 4</option>
+    </select>
+    
     <label for="username">Nombre de Usuario</label>
     <input type="text" name="username" value="{{profileUser.username}}">
     <br>
