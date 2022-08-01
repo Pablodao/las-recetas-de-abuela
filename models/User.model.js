@@ -9,8 +9,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default:"/images/avatar2.jpg"
-      //default: "https://img.freepik.com/vector-premium/ilustracion-plana-vector-avatar-mujer-avatar-mujer-joven-sonriente_469123-477.jpg?w=1060"  
+      default:"/images/avatar2.jpg"  
     },
     password: {
       type: String,
