@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const Recipe = require("../models/Recipe.model.js");
 
-
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {
   try {
@@ -23,7 +22,7 @@ router.post("/create", async (req, res, next) => {
   const { name, instructions, image, ingredients, difficulty, category } =
     req.body;
   try {
-    await Recipe.create({
+    const newRecipe = await Recipe.create({
       name,
       instructions,
       image,
@@ -31,24 +30,26 @@ router.post("/create", async (req, res, next) => {
       difficulty,
       category,
     });
-    req.redirect("./recipes");
+    res.redirect(`/recipes/${newRecipe._id}`);
   } catch (err) {
     next(err);
   }
 });
 
-//POST "/recipes/ingredients" Adds a ingredient to the ingredients list of a recipe and redirect
-router.post("/ingredient", async (req, res, next) => {
-
-    {name}
-
+// GET "/recipes/:recipeId" => Render view with all the recipe details
+router.get("/:recipeId", async (req, res, next) => {
+    const {recipeId} = req.params 
+    try {
+        const selectedRecipe = await Recipe.findById(recipeId)
+        res.render("recipes/details.hbs", selectedRecipe)
+    } catch (err) {
+        next(err)
+    }
 })
 
-//GET "/recipes/:recipeId" => Render view with all the recipe details
+// GET "/recipes/:recipeId/edit" => Render edit recipe form view
+// POST "/:recipeId/edit" => Edit a recipe and redirect
 
-//GET "/recipes/:recipeId/edit" => Render edit recipe form view
-//POST "/:recipeId/edit" => Edit a recipe and redirect
-
-//POST "/recipes/:recipeId/delete" => Delete a recipe from the DB
+// POST "/recipes/:recipeId/delete" => Delete a recipe from the DB
 
 module.exports = router;
