@@ -27,7 +27,11 @@ const recipeSchema = new Schema (
     creator: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    }
+    },
+    isfavorite:{ 
+      type: Boolean,
+      default: false
+    },
   },
   {
     timestamps: true,

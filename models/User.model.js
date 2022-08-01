@@ -10,7 +10,7 @@ const userSchema = new Schema(
     avatar: {
       type: String,
       enum:["/images/avatar1.jpg", "/images/avatar2.jpg", "/images/avatar3.jpg", "/images/avatar4.jpg"],
-      default:"/images/avatar1.jpg"  
+      //default:"/images/avatar1.jpg"  
     },
     password: {
       type: String,
@@ -31,7 +31,6 @@ const userSchema = new Schema(
       required: true,
       unique: true
     },
-    favoriterecipe: [""],
     isbloqued: Boolean,
     comments: [""],
     score: Number

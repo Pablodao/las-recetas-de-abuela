@@ -117,5 +117,13 @@ router.post("/:recipeId/delete", async (req, res, next) => {
     }
 })
 
+//POST "/recipes/isfavourite" => Update boolean isfavourite
+router.post("/isfavourite", (req, res, next) =>{
+  //1. Buscar receta
+  //2. Comprobar si es true o false
+  //3. Actualizar isfavourite
+
+})
+
 
 module.exports = router;
