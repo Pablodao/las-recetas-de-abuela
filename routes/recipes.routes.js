@@ -59,7 +59,7 @@ router.post("/:recipeId/ingredients", async (req, res, next) => {
   const { recipeId } = req.params;
   const { ingredients } = req.body;
   try {
-    await Recipe.findByIdAndUpdate(recipeId, { ingredients });
+    await Recipe.findByIdAndUpdate(recipeId, {$addToSet: {ingredients} } );
     res.redirect(`/recipes/${recipeId}`);
   } catch (err) {
     next(err);
