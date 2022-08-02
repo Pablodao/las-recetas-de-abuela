@@ -1,12 +1,18 @@
 <h1>{{selectedRecipe.name}}</h1>
-<p>Instrucciones: {{selectedRecipe.instructions}}</p>
 <img src="{{selectedRecipe.image}}" alt="Imagen de la receta " />
 
-<form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
-  <label for="ingredients">Agregar ingredientes:</label>
-  <input type="text" name="ingredients" />
-  <button>Añadir</button>
-</form>
+<h3>Instrucciones: </h3>
+<p>{{selectedRecipe.instructions}}</p>
+<br>
+{{#if userLogged}}
+  <form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
+    <label for="ingredients">Agregar ingredientes:</label>
+    <input type="text" name="ingredients" />
+    <button>Añadir</button>
+  </form>
+{{/if}}
+
+<h3>Ingredientes: </h3>
 <ul>
   {{#each selectedRecipe.ingredients}}
     <li>{{this}}</li>
@@ -15,17 +21,19 @@
 
 <p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
 
-<button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
-<form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
-  >Borrar Receta</button></form>
-<form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST">
-  {{#if isfavourite}}
-    <button>
-      Quitar de favoritos
-    </button>
-  {{else}}
-    <button>
-      Añadir a favoritos
-    </button>
-  {{/if}}
-</form>
+{{#if userLogged}}
+  <button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
+  <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
+    >Borrar Receta</button></form>
+  <form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST">
+    {{#if isfavourite}}
+      <button>
+        Quitar de favoritos
+      </button>
+    {{else}}
+      <button>
+        Añadir a favoritos
+      </button>
+    {{/if}}
+  </form>
+{{/if}}

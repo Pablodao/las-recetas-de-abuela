@@ -49,15 +49,22 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 // GET "/recipes/:recipeId/details" => Render view with all the recipe details
 router.get("/:recipeId/details", async (req, res, next) => {
   const { recipeId } = req.params;
+  
   try {
-    let isfavourite = false;
-    //si el usuario tiene en el array favoritos esta receta
-    const user = await User.findById(req.session.user._id);
-    if (user.favourites.includes(recipeId)) {
-      isfavourite = true;
-    }
+    let  userLogged = false
     const selectedRecipe = await Recipe.findById(recipeId);
-    res.render("recipes/details.hbs", { selectedRecipe, isfavourite });
+    if (req.session.user !== undefined) {
+      let isfavourite = false;
+      userLogged = true
+      const user = await User.findById(req.session.user._id);
+      if (user.favourites.includes(recipeId)) {
+        isfavourite = true;
+      }
+      
+      res.render("recipes/details.hbs", { selectedRecipe, isfavourite, userLogged });
+    } else {
+      res.render("recipes/details.hbs", { selectedRecipe , userLogged});
+    }
   } catch (err) {
     next(err);
   }
@@ -197,7 +204,7 @@ router.get("/my-favourites", async (req, res, next) => {
     );
     const favouriteList = user.favourites;
     let hasFavourites = false;
-    
+
     if (favouriteList.length > 0) {
       hasFavourites = true;
     }
