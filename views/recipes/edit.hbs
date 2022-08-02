@@ -8,6 +8,19 @@
   <label for="instructions">Instrucciones</label>
   <input type="text" name="instructions" value="{{selectedRecipe.instructions}}"/>
   <br />
+
+<form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
+  <label for="ingredients">Agregar ingredientes:</label>
+  <input type="text" name="ingredients" />
+  <button>Añadir</button>
+</form>
+<ul>
+  {{#each selectedRecipe.ingredients}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
+<br>
+
   <label for="category">Categoria</label>
   <select name="category" value="{{selectedRecipe.category}}">
     <option value="Ensalada">Ensalada</option>
