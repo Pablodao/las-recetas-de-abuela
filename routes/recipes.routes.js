@@ -66,6 +66,30 @@ router.post("/:recipeId/ingredients", async (req, res, next) => {
   }
 });
 
+//POST "/recipes/:recipeId/ingredients/edit" => Adds a new ingredient and redirect in edit 
+router.post("/:recipeId/ingredients/edit", async (req, res, next) => {
+  const { recipeId } = req.params;
+  const { ingredients } = req.body;
+  try {
+    await Recipe.findByIdAndUpdate(recipeId, {$addToSet: {ingredients} } );
+    res.redirect(`/recipes/${recipeId}/edit`);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST "/recipes/:recipeId/ingredient/delete" => Delete a ingredient from the DB and redirect 
+router.post("/:recipeId/ingredients/delete", async (req, res, next) => {
+const { recipeId } = req.params;
+const { ingredients } = req.body;
+try {
+  await Recipe.findByIdAndUpdate(recipeId, {$pull: {ingredients} } );
+  res.redirect(`/recipes/${recipeId}/edit`);
+} catch (err) {
+  next(err);
+}
+})
+
 // GET "/recipes/:recipeId/edit" => Render edit recipe form view
 router.get("/:recipeId/edit", async (req, res, next) => {
   const { recipeId } = req.params;
