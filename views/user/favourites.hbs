@@ -1,8 +1,11 @@
 <h1>Mis recetas favoritas</h1>
-
-{{#each favouriteList}}
-    <p>{{this.name}}Nombre</p>
-    <img src="{{this.image}}" alt="" width="200px">
+{{#if hasFavourites}}
+  {{#each favouriteList}}
+    <p>{{this.name}}</p>
+    <img src="{{this.image}}" alt="" width="200px" />
     <a href="/recipes/{{this._id}}/details">Ver detalles</a>
     <button>Eliminar</button>
-{{/each }}
+  {{/each}}
+    {{else}}
+    <p>No has agregado ninguna receta a tus favoritos!</p>
+{{/if}}
