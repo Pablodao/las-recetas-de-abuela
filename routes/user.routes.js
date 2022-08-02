@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { isLoggedIn } = require("../middlewares/auth.js");
 const User = require("../models/User.model.js");
-const {isLoggedIn} = require("../middlewares/auth.js")
+
 
 
 //GET "/user/myprofile Render my profile view

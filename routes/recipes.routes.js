@@ -39,13 +39,22 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
       category,
       creator:req.session.user._id
     });
-    res.redirect(`/recipes/${newRecipe._id}`);
+    res.redirect(`/recipes/${newRecipe._id}/details`);
   } catch (err) {
     next(err);
   }
 });
 
-
+// GET "/recipes/:recipeId" => Render view with all the recipe details
+router.get("/:recipeId/details", async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+    const selectedRecipe = await Recipe.findById(recipeId);
+    res.render("recipes/details.hbs", { selectedRecipe });
+  } catch (err) {
+    next(err);
+  }
+});
 
 //POST "/recipes/:recipeId/ingredients" => Adds a new ingredient and redirect
 router.post("/:recipeId/ingredients", async (req, res, next) => {
@@ -53,7 +62,7 @@ router.post("/:recipeId/ingredients", async (req, res, next) => {
   const { ingredients } = req.body;
   try {
     await Recipe.findByIdAndUpdate(recipeId, {$addToSet: {ingredients} } );
-    res.redirect(`/recipes/${recipeId}`);
+    res.redirect(`/recipes/${recipeId}/details`);
   } catch (err) {
     next(err);
   }
@@ -118,7 +127,7 @@ router.post("/:recipeId/edit", async (req, res, next) => {
       category,
     });
     
-    res.redirect(`/recipes/${recipeId}`);
+    res.redirect(`/recipes/${recipeId}/details`);
   } catch (err) {
     next(err);
   }
@@ -138,10 +147,12 @@ router.post("/:recipeId/delete", async (req, res, next) => {
 router.get("/my-recipes", isLoggedIn, async (req, res, next) =>{
 
   try{
-    const myRecipes = await Recipe.find({creator:req.session.user._id}).populate("creator") 
-    //condicional myRecipes esta vacío poner 
-    console.log(myRecipes)
-    res.render("user/my-recipes.hbs", {myRecipes})
+    const myRecipes = await Recipe.find({creator:req.session.user._id}).populate("creator")
+     let hasRecipes = true
+     if( myRecipes.length  === 0){
+       hasRecipes = false
+     }
+    res.render("user/my-recipes.hbs", {myRecipes, hasRecipes})
   }catch(err){
     next(err)
   }
@@ -149,22 +160,13 @@ router.get("/my-recipes", isLoggedIn, async (req, res, next) =>{
 })
 
 //POST "/recipes/isfavourite" => Update boolean isfavourite
-// router.post("/isfavourite", (req, res, next) =>{
+router.post("/isfavourite", (req, res, next) =>{
 //   1. Buscar receta
 //   2. Comprobar si es true o false
 //   3. Actualizar isfavourite
 
-// })
+})
 
-// GET "/recipes/:recipeId" => Render view with all the recipe details
-router.get("/:recipeId", async (req, res, next) => {
-  const { recipeId } = req.params;
-  try {
-    const selectedRecipe = await Recipe.findById(recipeId);
-    res.render("recipes/details.hbs", { selectedRecipe });
-  } catch (err) {
-    next(err);
-  }
-});
+
 
 module.exports = router;
