@@ -1,17 +1,21 @@
-
 <h1>{{selectedRecipe.name}}</h1>
 <p>Instrucciones: {{selectedRecipe.instructions}}</p>
-<img src="{{selectedRecipe.image}}" alt="Imagen de la receta ">
+<img src="{{selectedRecipe.image}}" alt="Imagen de la receta " />
 
 <form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
   <label for="ingredients">Agregar ingredientes:</label>
   <input type="text" name="ingredients" />
   <button>Añadir</button>
 </form>
- <p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
+<ul>
+  {{#each selectedRecipe.ingredients}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
 
+<p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
 
 <button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
-<form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button>Borrar Receta</button></form>
-<form action="/recipes/isfavourite" method="POST" ><button>Añadir a favoritos</button></form>
-
+<form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
+  >Borrar Receta</button></form>
+<form action="/recipes/isfavourite" method="POST"><button>Añadir a favoritos</button></form>
