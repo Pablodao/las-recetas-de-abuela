@@ -52,8 +52,10 @@
   {{#each selectedRecipe.ingredients}}
     <li>{{this}}</li>
     <form
-      action="/recipes/{{this._id}}/ingredients/delete"
+      action="/recipes/{{../selectedRecipe._id}}/ingredients/delete"
       method="POST"
-    ><button>X</button></form>
+    >
+    <input type="hidden" name="ingredients" value="{{this}}">
+    <button>X</button></form>
   {{/each}}
 </ul>
