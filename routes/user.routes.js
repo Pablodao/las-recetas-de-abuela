@@ -41,25 +41,6 @@ router.post("/myprofile/edit", async (req, res, next) =>{
 
 
 
-//GET "user/favourite-recipes" Render a view of a favourite recipes list
-router.get("/favourite-recipes", async (req, res, next) => {
-    try{
-        //todo PENDIENTE 
-        const listRecipe = await Recipe.find()
-
-        res.render("user/favourites.hbs", {listRecipe})
-    }catch(err){
-        next(err)
-    }
-    
-})
-
-//GET "user/my-recipes" Render a view of the recipes created by the user
-router.get("/my-recipes", async (req, res, next) =>{
-  res.render("user/my-recipe.hbs")
-
-})
-
 
 
 module.exports = router;

@@ -117,13 +117,25 @@ router.post("/:recipeId/delete", async (req, res, next) => {
     }
 })
 
-//POST "/recipes/isfavourite" => Update boolean isfavourite
-router.post("/isfavourite", (req, res, next) =>{
-  //1. Buscar receta
-  //2. Comprobar si es true o false
-  //3. Actualizar isfavourite
-
+//GET "recipes/my-recipes" Render a view of the recipes created by the user
+router.get("/my-recipes", async (req, res, next) =>{
+   
+  try{
+    const myRecipes = await Recipe.find().select({creator:req.session.user._id}).populate("creator")  
+    res.render("user/my-recipes.hbs")
+  }catch(err){
+    next(err)
+  }
+ 
 })
+
+//POST "/recipes/isfavourite" => Update boolean isfavourite
+// router.post("/isfavourite", (req, res, next) =>{
+//   1. Buscar receta
+//   2. Comprobar si es true o false
+//   3. Actualizar isfavourite
+
+// })
 
 
 module.exports = router;
