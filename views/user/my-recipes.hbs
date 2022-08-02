@@ -1,1 +1,9 @@
 <h1>Recetas creadas por mi</h1>
+
+
+    {{#each myRecipes}}
+    {{myRecipes.name}}
+    <img src="{{myRecipes.name}}" alt="receta">
+    <button>Modificar</button>
+    <button>Borrar</button>
+    {{/each}}

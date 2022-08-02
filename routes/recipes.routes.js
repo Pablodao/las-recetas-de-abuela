@@ -117,15 +117,15 @@ router.post("/:recipeId/delete", async (req, res, next) => {
     }
 })
 
-//GET "recipes/my-recipes" Render a view of the recipes created by the user
-router.get("/my-recipes", async (req, res, next) =>{
-   
-  try{
-    const myRecipes = await Recipe.find().select({creator:req.session.user._id}).populate("creator")  
-    res.render("user/my-recipes.hbs")
-  }catch(err){
-    next(err)
-  }
+//GET "recipes/myrecipes" Render a view of the recipes created by the user
+router.get("/myrecipes", (req, res, next) =>{
+  res.render("user/my-recipes.hbs")
+  //try{
+    //const myRecipes = await Recipe.find().select({creator:req.session.user._id}).populate("creator")  
+    
+  // }catch(err){
+  //   next(err)
+  // }
  
 })
 
