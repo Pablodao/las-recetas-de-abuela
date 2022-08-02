@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Recipe = require("../models/Recipe.model.js");
-const {isLoggedIn} = require("../middlewares/auth.js")
+const {isLoggedIn} = require("../middlewares/auth.js");
+const User = require("../models/User.model.js");
 
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {
@@ -45,10 +46,13 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// GET "/recipes/:recipeId" => Render view with all the recipe details
+// GET "/recipes/:recipeId/details" => Render view with all the recipe details
 router.get("/:recipeId/details", async (req, res, next) => {
   const { recipeId } = req.params;
   try {
+    let isfavourite = false
+    //si el usuario tiene en el array favoritos esta receta
+
     const selectedRecipe = await Recipe.findById(recipeId);
     res.render("recipes/details.hbs", { selectedRecipe });
   } catch (err) {
@@ -159,14 +163,41 @@ router.get("/my-recipes", isLoggedIn, async (req, res, next) =>{
  
 })
 
-//POST "/recipes/isfavourite" => Update boolean isfavourite
-router.post("/isfavourite", (req, res, next) =>{
-//   1. Buscar receta
-//   2. Comprobar si es true o false
-//   3. Actualizar isfavourite
 
+
+//POST "/recipes/:recipeId/isfavourite" => Update boolean isfavourite
+router.post("/:recipeId/isfavourite", isLoggedIn, async (req, res, next) =>{
+    const {recipeId} = req.params
+  try{
+  
+  //si la receta esta en la lista de favoritos del usuario
+  const user = await User.findById(req.session.user._id)
+  if(user.favourites.includes(recipeId) ){
+   //await Recipe.findByIdAndUpdate(recipeId, {isfavourite:false})
+   await User.findByIdAndUpdate(req.session.user._id, {$pull: {favourites:recipeId} })
+  
+  }else{
+   //await Recipe.findByIdAndUpdate(recipeId, {isfavourite:true})
+   await User.findByIdAndUpdate(req.session.user._id, {$addToSet: {favourites: recipeId} })
+  }
+    res.redirect(`/recipes/${recipeId}/details`)
+  }catch(err){
+    next(err)
+  }
 })
 
+//GET "/recipes/my-favourites" => View my favourites recipes
+router.get("/my-favourites", async (req, res, next) =>{
+  try{
 
+      const favouriteList = await User.findById(req.session.user._id).populate("favourites")
+      console.log(favouriteList)
+      res.render("user/favourites.hbs", {favouriteList})
+
+
+  }catch(err){
+    next(err)
+  }
+})
 
 module.exports = router;

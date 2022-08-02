@@ -18,5 +18,5 @@
 <button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
 <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
   >Borrar Receta</button></form>
-<form action="/recipes/isfavourite" method="POST"><button>Añadir a favoritos</button></form>
+<form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST"><button>Añadir a favoritos</button></form>
 <button>Me gusta</button>

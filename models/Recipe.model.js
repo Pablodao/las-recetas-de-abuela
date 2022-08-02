@@ -28,7 +28,7 @@ const recipeSchema = new Schema (
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    isfavorite:{ 
+    isfavourite:{ 
       type: Boolean,
       default: false
     },

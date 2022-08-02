@@ -1,8 +1,8 @@
 <h1>Mis recetas favoritas</h1>
 
-{{#each listRecipe}}
-    <p>{{listRecipe.name}}Nombre</p>
-    <img src="{{listRecipe.image}}" alt="200px">
-    <a href="/views/recipes/details.hbs">Ver detalles</a>
+{{#each favouriteList}}
+    <p>{{this.name}}Nombre</p>
+    <img src="{{this.image}}" alt="" width="200px">
+    <a href="/recipes/{{this._id}}/details">Ver detalles</a>
     <button>Eliminar</button>
 {{/each }}

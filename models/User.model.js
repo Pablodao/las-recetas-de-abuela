@@ -32,10 +32,10 @@ const userSchema = new Schema(
       unique: true
     },
     isbloqued: Boolean,
-    favourites:{
+    favourites:[{
       type: Schema.Types.ObjectId,
       ref: "Recipe"
-    },
+    }],
     comments: [""],
     score: Number
   },
