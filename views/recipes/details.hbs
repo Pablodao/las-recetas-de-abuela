@@ -3,13 +3,15 @@
 
 <h3>Instrucciones: </h3>
 <p>{{selectedRecipe.instructions}}</p>
-<br>
+<br />
 {{#if userLogged}}
-  <form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
-    <label for="ingredients">Agregar ingredientes:</label>
-    <input type="text" name="ingredients" />
-    <button>Añadir</button>
-  </form>
+  {{#if isCreator}}
+    <form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
+      <label for="ingredients">Agregar ingredientes:</label>
+      <input type="text" name="ingredients" />
+      <button>Añadir</button>
+    </form>
+  {{/if}}
 {{/if}}
 
 <h3>Ingredientes: </h3>
@@ -22,18 +24,23 @@
 <p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
 
 {{#if userLogged}}
-  <button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
-  <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
-    >Borrar Receta</button></form>
-  <form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST">
-    {{#if isfavourite}}
-      <button>
-        Quitar de favoritos
-      </button>
-    {{else}}
-      <button>
-        Añadir a favoritos
-      </button>
-    {{/if}}
-  </form>
+  {{#if isCreator}}
+    <button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
+
+    <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
+      >Borrar Receta</button></form>
+    <form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST">
+  {{/if}}
+      {{#if isfavourite}}
+        <button>
+          Quitar de favoritos
+        </button>
+      {{else}}
+        <button>
+          Añadir a favoritos
+        </button>
+      {{/if}}
+
+    </form>
+  
 {{/if}}
