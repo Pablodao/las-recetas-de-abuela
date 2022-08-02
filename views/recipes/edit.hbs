@@ -3,23 +3,15 @@
 <form action="/recipes/{{selectedRecipe._id}}/edit" method="POST">
 
   <label for="name">Nombre de la Receta: </label>
-  <input type="text" name="name" value="{{selectedRecipe.name}}"/>
+  <input type="text" name="name" value="{{selectedRecipe.name}}" />
   <br />
   <label for="instructions">Instrucciones</label>
-  <input type="text" name="instructions" value="{{selectedRecipe.instructions}}"/>
+  <input
+    type="text"
+    name="instructions"
+    value="{{selectedRecipe.instructions}}"
+  />
   <br />
-
-<form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
-  <label for="ingredients">Agregar ingredientes:</label>
-  <input type="text" name="ingredients" />
-  <button>Añadir</button>
-</form>
-<ul>
-  {{#each selectedRecipe.ingredients}}
-    <li>{{this}}</li>
-  {{/each}}
-</ul>
-<br>
 
   <label for="category">Categoria</label>
   <select name="category" value="{{selectedRecipe.category}}">
@@ -40,8 +32,28 @@
     <option value="Alta">Alta</option>
   </select>
   <br />
-<label for="preparationtime">Tiempo (en minutos):</label>
-  <input type="text" name="preparationtime" value="{{selectedRecipe.preparationtime}}" />
+  <label for="preparationtime">Tiempo (en minutos):</label>
+  <input
+    type="text"
+    name="preparationtime"
+    value="{{selectedRecipe.preparationtime}}"
+  />
   <br />
   <button>Editar</button>
 </form>
+
+<form action="/recipes/{{selectedRecipe._id}}/ingredients/edit" method="POST">
+  <label for="ingredients">Agregar ingredientes:</label>
+  <input type="text" name="ingredients" />
+  <button>Añadir</button>
+</form>
+
+<ul>
+  {{#each selectedRecipe.ingredients}}
+    <li>{{this}}</li>
+    <form
+      action="/recipes/{{this._id}}/ingredients/delete"
+      method="POST"
+    ><button>X</button></form>
+  {{/each}}
+</ul>
