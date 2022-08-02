@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Recipe = require("../models/Recipe.model.js");
+const {isLoggedIn} = require("../middlewares/auth.js")
 
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {
@@ -13,11 +14,11 @@ router.get("/", async (req, res, next) => {
 });
 
 //GET "/recipes/create" => Render create recipe form view
-router.get("/create", (req, res, next) => {
+router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
 });
 //POST "/recipes/create" => Creates a recipe in the DB and redirect
-router.post("/create", async (req, res, next) => {
+router.post("/create", isLoggedIn, async (req, res, next) => {
   const {
     name,
     instructions,
@@ -36,6 +37,7 @@ router.post("/create", async (req, res, next) => {
       preparationtime,
       difficulty,
       category,
+      creator:req.session.user._id
     });
     res.redirect(`/recipes/${newRecipe._id}`);
   } catch (err) {
@@ -43,16 +45,7 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
-// GET "/recipes/:recipeId" => Render view with all the recipe details
-router.get("/:recipeId", async (req, res, next) => {
-  const { recipeId } = req.params;
-  try {
-    const selectedRecipe = await Recipe.findById(recipeId);
-    res.render("recipes/details.hbs", { selectedRecipe });
-  } catch (err) {
-    next(err);
-  }
-});
+
 
 //POST "/recipes/:recipeId/ingredients" => Adds a new ingredient and redirect
 router.post("/:recipeId/ingredients", async (req, res, next) => {
@@ -141,15 +134,17 @@ router.post("/:recipeId/delete", async (req, res, next) => {
     }
 })
 
-//GET "recipes/myrecipes" Render a view of the recipes created by the user
-router.get("/myrecipes", (req, res, next) =>{
-  res.render("user/my-recipes.hbs")
-  //try{
-    //const myRecipes = await Recipe.find().select({creator:req.session.user._id}).populate("creator")  
-    
-  // }catch(err){
-  //   next(err)
-  // }
+//GET "recipes/my-recipes" Render a view of the recipes created by the user
+router.get("/my-recipes", isLoggedIn, async (req, res, next) =>{
+
+  try{
+    const myRecipes = await Recipe.find({creator:req.session.user._id}).populate("creator") 
+    //condicional myRecipes esta vacío poner 
+    console.log(myRecipes)
+    res.render("user/my-recipes.hbs", {myRecipes})
+  }catch(err){
+    next(err)
+  }
  
 })
 
@@ -161,5 +156,15 @@ router.get("/myrecipes", (req, res, next) =>{
 
 // })
 
+// GET "/recipes/:recipeId" => Render view with all the recipe details
+router.get("/:recipeId", async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+    const selectedRecipe = await Recipe.findById(recipeId);
+    res.render("recipes/details.hbs", { selectedRecipe });
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

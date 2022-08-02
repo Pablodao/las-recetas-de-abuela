@@ -2,8 +2,8 @@
 
 
     {{#each myRecipes}}
-    {{myRecipes.name}}
-    <img src="{{myRecipes.name}}" alt="receta">
-    <button>Modificar</button>
+    {{this.name}}
+    <img src="{{this.image}}" alt="receta">
+    <button><a href="/{{this._id}}/details"></a>Modificar</button>
     <button>Borrar</button>
     {{/each}}

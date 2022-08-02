@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { isLoggedIn } = require("../middlewares/auth.js");
 const User = require("../models/User.model.js");
+const {isLoggedIn} = require("../middlewares/auth.js")
 
 
 //GET "/user/myprofile Render my profile view
@@ -14,7 +15,7 @@ router.get("/myprofile", isLoggedIn, async (req, res, next) => {
 })
 
 //GET "user/myprofile/edit" Render edit profile view
-router.get("/myprofile/edit", async (req, res, next) =>{
+router.get("/myprofile/edit", isLoggedIn, async (req, res, next) =>{
     
     try{
         const profileUser = await User.findById(req.session.user._id);
@@ -25,7 +26,7 @@ router.get("/myprofile/edit", async (req, res, next) =>{
 })
 
 //POST "user/myprofile/edit" Edit profile and redirect to my profile
-router.post("/myprofile/edit", async (req, res, next) =>{
+router.post("/myprofile/edit", isLoggedIn, async (req, res, next) =>{
     const {username, email, avatar} = req.body
     try{    
         await User.findByIdAndUpdate(req.session.user._id, {
@@ -38,6 +39,7 @@ router.post("/myprofile/edit", async (req, res, next) =>{
         next(err)
     }
 })
+
 
 
 
