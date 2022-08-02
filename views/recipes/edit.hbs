@@ -17,6 +17,7 @@
 <ul>
   {{#each selectedRecipe.ingredients}}
     <li>{{this}}</li>
+   <form action="/recipes/ingredient/delete" method="POST"><button>X</button></form>
   {{/each}}
 </ul>
 <br>
