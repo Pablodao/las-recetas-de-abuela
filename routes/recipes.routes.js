@@ -55,8 +55,7 @@ router.get("/:recipeId/details", async (req, res, next) => {
   const { recipeId } = req.params;
   const isUserActive = res.locals.isUserActive;
   try {
-    const selectedRecipe = await Recipe.findById(recipeId).populate("creator");
-
+    const selectedRecipe = await Recipe.findById(recipeId).populate("creator comments");
     if (isUserActive === true) {
       let isfavourite = false;
       const user = await User.findById(req.session.user._id);
