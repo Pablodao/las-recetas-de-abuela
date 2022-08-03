@@ -52,16 +52,20 @@ router.get("/:recipeId/details", async (req, res, next) => {
 
   try {
     let userLogged = false;
-    let isCreator = false;
-    const selectedRecipe = await Recipe.findById(recipeId);
-
+    
+    const selectedRecipe = await Recipe.findById(recipeId).populate("creator");
+   
     if (req.session.user !== undefined) {
-      if (req.session.user_id === selectedRecipe.creator._id) {
+
+      let isCreator = false;
+      if (req.session.user._id == selectedRecipe.creator._id) {
         isCreator = true;
+        console.log( isCreator)
       }
       let isfavourite = false;
       userLogged = true;
       const user = await User.findById(req.session.user._id);
+
       if (user.favourites.includes(recipeId)) {
         isfavourite = true;
       }
