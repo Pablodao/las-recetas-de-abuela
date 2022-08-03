@@ -3,7 +3,7 @@ const Recipe = require("../models/Recipe.model.js");
 const User = require("../models/User.model.js");
 const Comment = require("../models/Comment.model");
 const { isLoggedIn } = require("../middlewares/auth.js");
-const uploader = ("../middlewares/uploader.js");
+const uploader = require("../middlewares/uploader.js");
 
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {
@@ -21,7 +21,7 @@ router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
 });
 //POST "/recipes/create" => Creates a recipe in the DB and redirect
-router.post("/create", isLoggedIn, async (req, res, next) => {
+router.post("/create", isLoggedIn, uploader.single("image"), async (req, res, next) => {
   const {
     name,
     instructions,
@@ -36,7 +36,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
     const newRecipe = await Recipe.create({
       name,
       instructions,
-      image,
+      image: req.file.path,
       ingredients,
       preparationtime,
       difficulty,
@@ -132,7 +132,7 @@ router.get("/:recipeId/edit", async (req, res, next) => {
 });
 
 // POST "/:recipeId/edit" => Edit a recipe and redirect
-router.post("/:recipeId/edit", async (req, res, next) => {
+router.post("/:recipeId/edit", isLoggedIn, uploader.single("image"), async (req, res, next) => {
   const { recipeId } = req.params;
   const {
     name,
@@ -147,7 +147,7 @@ router.post("/:recipeId/edit", async (req, res, next) => {
     await Recipe.findByIdAndUpdate(recipeId, {
       name,
       instructions,
-      image,
+      image: req.file.path,
       ingredients,
       preparationtime,
       difficulty,

@@ -1,5 +1,12 @@
 <h1>Edita tu receta</h1>
 
+<h3>Pon una imagen a tu receta</h3>
+
+<form action="/recipes/{{selectedRecipe._id}}/edit" method="POST" enctype="multipart/form-data">
+    <label for="image">Imagen</label>
+    <input type="file" name="image"> 
+    <button>Agregar Imagen</button>
+</form>
 <form action="/recipes/{{selectedRecipe._id}}/edit" method="POST">
 
   <label for="name">Nombre de la Receta: </label>

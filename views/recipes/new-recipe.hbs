@@ -1,10 +1,21 @@
 <h1>Crea tu receta</h1>
 
-<form action="/recipes/create" method="POST">
+
+{{!-- <form action="/recipes/create" method="POST" enctype="multipart/form-data">
+    <label for="image">Imagen</label>
+    <input type="file" name="image"> 
+    <button>Agregar Imagen</button>
+</form> --}}
+
+<form action="/recipes/create" method="POST" enctype="multipart/form-data">
 
   <label for="name">Nombre de la Receta: </label>
   <input type="text" name="name" />
   <br />
+   <label for="image">Pon una imagen a tu receta</label>
+    <input type="file" name="image"> 
+    <button>Agregar Imagen</button>
+    <br>
   <label for="instructions">Instrucciones</label>
   <input type="text" name="instructions" />
   <br />
