@@ -1,45 +1,55 @@
 const { Schema, model } = require("mongoose");
 
-const recipeSchema = new Schema (
+const recipeSchema = new Schema(
   {
-    name:{
-        type:String,
-        required: true
+    name: {
+      type: String,
+      required: true,
     },
     instructions: {
-        type: String,
-        required: true
-    },  
-    image : {
-        type:String,
-        default: "",  //TODO NOS FALTA URL SEGUN EL TIPO DE CATEGORIA DE PLATO  
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      default: "", //TODO NOS FALTA URL SEGUN EL TIPO DE CATEGORIA DE PLATO
     },
     ingredients: [""],
-    preparationtime: Number, 
+    preparationtime: Number,
     difficulty: {
-        type: String,
-        enum:["Baja", "Media", "Alta"]
+      type: String,
+      enum: ["Baja", "Media", "Alta"],
     },
-    category:{
-        type: String,
-        enum:["Ensalada", "Carne", "Pescado", "Sopa", "Arroces","Pastas", "Guisos", "Postres"]
+    category: {
+      type: String,
+      enum: [
+        "Ensalada",
+        "Carne",
+        "Pescado",
+        "Sopa",
+        "Arroces",
+        "Pastas",
+        "Guisos",
+        "Postres",
+      ],
     },
     creator: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    isfavourite:{ 
+    isfavourite: {
       type: Boolean,
-      default: false
+      default: false,
     },
+    comments: [{
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    }],
   },
   {
     timestamps: true,
   }
 );
-
-
-
 
 const Recipe = model("Recipe", recipeSchema);
 module.exports = Recipe;
