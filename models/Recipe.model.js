@@ -24,13 +24,13 @@ const recipeSchema = new Schema(
       type: String,
       enum: [
         "Ensalada",
+        "Sopa",
+        "Guiso",
         "Carne",
         "Pescado",
-        "Sopa",
-        "Arroces",
-        "Pastas",
-        "Guisos",
-        "Postres",
+        "Pasta",
+        "Arroz",
+        "Postre",
       ],
     },
     creator: {

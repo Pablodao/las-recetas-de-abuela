@@ -7,27 +7,72 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>{{appTitle}}</title>
       <link rel="stylesheet" href="/stylesheets/style.css" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
    </head>
 
    <body>
 
-      <nav>
-         <a href="/">Inicio</a>
-         <a href="/recipes">Recetas</a>
-         {{#if isUserActive}}
-            <a href="/user/myprofile">Mi perfil</a>
-            <a href="/recipes/my-favourites">Mis recetas favoritas</a>
-            <a href="/recipes/create">Crea tu receta</a>
-            <a href="/recipes/my-recipes">Recetas creadas</a>
-            <a href="/auth/logout">Cerrar Sesión</a>
-         {{else}}
-         <a href="/auth/signup">Regristrate</a>
-         <a href="/auth/login">Acceso</a>
-         {{/if}}
+      <nav class="navbar navbar-expand-lg" style="background-color: #cf8278;">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="/">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+               <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="/recipes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Recetas
+                     </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/recipes">Todas las recetas</a></li>
+                        <li><a class="dropdown-item" href="/recipes/ensalada">Ensaladas</a></li>
+                        <li><a class="dropdown-item" href="/recipes/sopa">Sopas</a></li>
+                        <li><a class="dropdown-item" href="/recipes/guiso">Guisos</a></li>
+                        <li><a class="dropdown-item" href="/recipes/carne">Carnes</a></li>
+                        <li><a class="dropdown-item" href="/recipes/pescado">Pescados</a></li>
+                        <li><a class="dropdown-item" href="/recipes/pasta">Pastas</a></li>
+                        <li><a class="dropdown-item" href="/recipes/arro<">Arroces</a></li>
+                        <li><a class="dropdown-item" href="/recipes/postre">Postres</a></li>
+                     </ul>
+                  </li>
+                  {{#if isUserActive}}
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="/recipes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Mi perfil
+                     </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/user/myprofile">Mi perfil</a></li>
+                        <li><a class="dropdown-item" href="/recipes/my-favourites">Mis recetas favoritas</a></li>
+                        <li><a class="dropdown-item" href="/recipes/create">Crea tu receta</a></li>
+                        <li><a class="dropdown-item" href="/recipes/my-recipes">Recetas creadas</a></li>
+                     </ul>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="/auth/logout">Cerrar Sesión</a>
+                  </li>
+                  {{else}}
+                  <li class="nav-item">
+                     <a class="nav-link" href="/auth/signup">Registrate</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="/auth/login">Acceso</a>
+                  </li>
+                  {{/if}}
+               </ul>
+               <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="busca una receta" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Buscador</button>
+               </form>
+            </div>
+         </div>   
+                    
       </nav>
+
       {{{body}}}
 
       <script src="/js/script.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
    </body>
 
 </html>
