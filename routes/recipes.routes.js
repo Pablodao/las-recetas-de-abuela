@@ -30,7 +30,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
     preparationtime,
     difficulty,
     category,
-    comments,
+    
   } = req.body;
   try {
     const newRecipe = await Recipe.create({
@@ -42,7 +42,6 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
       difficulty,
       category,
       creator: req.session.user._id,
-      comments,
     });
     res.redirect(`/recipes/${newRecipe._id}/details`);
   } catch (err) {
@@ -55,7 +54,8 @@ router.get("/:recipeId/details", async (req, res, next) => {
   const { recipeId } = req.params;
   const isUserActive = res.locals.isUserActive;
   try {
-    const selectedRecipe = await Recipe.findById(recipeId).populate("creator comments");
+    const selectedRecipe = await Recipe.findById(recipeId).populate("creator");
+    const recipeComment = await Comment.find({recipe: recipeId})
     if (isUserActive === true) {
       let isfavourite = false;
       const user = await User.findById(req.session.user._id);
@@ -73,6 +73,7 @@ router.get("/:recipeId/details", async (req, res, next) => {
         isfavourite,
         isUserActive,
         isCreator,
+        recipeComment
       });
     } else {
       res.render("recipes/details.hbs", { selectedRecipe, isUserActive });
