@@ -21,33 +21,37 @@ router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
 });
 //POST "/recipes/create" => Creates a recipe in the DB and redirect
-router.post("/create", isLoggedIn, uploader.single("image"), async (req, res, next) => {
-  const {
-    name,
-    instructions,
-    image,
-    ingredients,
-    preparationtime,
-    difficulty,
-    category,
-    
-  } = req.body;
-  try {
-    const newRecipe = await Recipe.create({
+router.post(
+  "/create",
+  isLoggedIn,
+  uploader.single("image"),
+  async (req, res, next) => {
+    const {
       name,
       instructions,
-      image: req.file.path,
+      image,
       ingredients,
       preparationtime,
       difficulty,
       category,
-      creator: req.session.user._id,
-    });
-    res.redirect(`/recipes/${newRecipe._id}/details`);
-  } catch (err) {
-    next(err);
+    } = req.body;
+    try {
+      const newRecipe = await Recipe.create({
+        name,
+        instructions,
+        image: req.file.path,
+        ingredients,
+        preparationtime,
+        difficulty,
+        category,
+        creator: req.session.user._id,
+      });
+      res.redirect(`/recipes/${newRecipe._id}/details`);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 // GET "/recipes/:recipeId/details" => Render view with all the recipe details
 router.get("/:recipeId/details", async (req, res, next) => {
@@ -55,7 +59,7 @@ router.get("/:recipeId/details", async (req, res, next) => {
   const isUserActive = res.locals.isUserActive;
   try {
     const selectedRecipe = await Recipe.findById(recipeId).populate("creator");
-    const recipeComment = await Comment.find({recipe: recipeId})
+    const recipeComment = await Comment.find({ recipe: recipeId });
     if (isUserActive === true) {
       let isfavourite = false;
       const user = await User.findById(req.session.user._id);
@@ -73,7 +77,7 @@ router.get("/:recipeId/details", async (req, res, next) => {
         isfavourite,
         isUserActive,
         isCreator,
-        recipeComment
+        recipeComment,
       });
     } else {
       res.render("recipes/details.hbs", { selectedRecipe, isUserActive });
@@ -132,33 +136,38 @@ router.get("/:recipeId/edit", async (req, res, next) => {
 });
 
 // POST "/:recipeId/edit" => Edit a recipe and redirect
-router.post("/:recipeId/edit", isLoggedIn, uploader.single("image"), async (req, res, next) => {
-  const { recipeId } = req.params;
-  const {
-    name,
-    instructions,
-    image,
-    ingredients,
-    preparationtime,
-    difficulty,
-    category,
-  } = req.body;
-  try {
-    await Recipe.findByIdAndUpdate(recipeId, {
+router.post(
+  "/:recipeId/edit",
+  isLoggedIn,
+  uploader.single("image"),
+  async (req, res, next) => {
+    const { recipeId } = req.params;
+    const {
       name,
       instructions,
-      image: req.file.path,
+      image,
       ingredients,
       preparationtime,
       difficulty,
       category,
-    });
+    } = req.body;
+    try {
+      await Recipe.findByIdAndUpdate(recipeId, {
+        name,
+        instructions,
+        image: req.file.path,
+        ingredients,
+        preparationtime,
+        difficulty,
+        category,
+      });
 
-    res.redirect(`/recipes/${recipeId}/details`);
-  } catch (err) {
-    next(err);
+      res.redirect(`/recipes/${recipeId}/details`);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 // POST "/recipes/:recipeId/delete" => Delete a recipe from the DB and redirect
 router.post("/:recipeId/delete", async (req, res, next) => {
   const { recipeId } = req.params;
@@ -235,18 +244,65 @@ router.post("/:recipeId/comment", isLoggedIn, async (req, res, next) => {
   const { content } = req.body;
 
   try {
-    const newComent = await Comment.create({
+    await Comment.create({
       content,
       recipe: recipeId,
       creator: req.session.user._id,
     });
-    await Recipe.findByIdAndUpdate(recipeId, {
-      $addToSet: { comment: newComent },
-    });
+
     res.redirect(`/recipes/${recipeId}/details`);
   } catch (err) {
     next(err);
   }
 });
+
+router.get("/:recipeId/:commentId/edit", async (req, res, next) => {
+  const { commentId } = req.params;
+
+  try {
+    const selectedComment = await Comment.findById(commentId);
+    let isCreator = false;
+    if (req.session.user._id == selectedComment.creator._id) {
+      isCreator = true;
+    }
+
+    res.render("recipes/comment-edit.hbs", { selectedComment });
+  } catch (err) {
+    next(err);
+  }
+});
+//POST "recipes/:recipeId/comment/edit" =>  Edit a comment in the DB
+
+router.post(
+  "/:recipeId/:commentId/edit",
+  isLoggedIn,
+  async (req, res, next) => {
+    const { recipeId, commentId } = req.params;
+    const { content } = req.body;
+    try {
+      await Comment.findByIdAndUpdate(commentId, { content, isEdited: true });
+      res.redirect(`/recipes/${recipeId}/details`);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+//POST "recipes/:recipeId/comment/delete" => Delete a comment in the DB
+
+router.post(
+  "/:recipeId/:commentId/delete",
+  isLoggedIn,
+  async (req, res, next) => {
+    const { recipeId, commentId } = req.params;
+
+    try {
+      await Comment.findByIdAndDelete(commentId);
+      res.redirect(`/recipes/${recipeId}/details`);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 module.exports = router;
