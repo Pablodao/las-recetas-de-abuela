@@ -12,7 +12,7 @@ const storage= new CloudinaryStorage({
     cloudinary,
     params:{
         allow_formats: ["jpg", "png"],
-        folder: "recipes"
+        folder: "avatar"   //le puedo poner "avatar, recipes" para que me cree las dos carpetas
     }
 })
 

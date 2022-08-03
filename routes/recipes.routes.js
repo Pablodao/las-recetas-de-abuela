@@ -3,6 +3,7 @@ const Recipe = require("../models/Recipe.model.js");
 const User = require("../models/User.model.js");
 const Comment = require("../models/Comment.model");
 const { isLoggedIn } = require("../middlewares/auth.js");
+const uploader = ("../middlewares/uploader.js");
 
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {

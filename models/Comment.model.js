@@ -1,17 +1,17 @@
 const {Schema, model} = require ("mongoose");
 
-const commentSchema = newSchema(
+const commentSchema = new Schema (
   {
     name:{
         type:String,
         required: true
     },
     recipe:{
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Recipe"
     },
     creator: {
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     },
   },
