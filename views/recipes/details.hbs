@@ -53,10 +53,28 @@
     <button>Añadir</button>
   </form>
 
-<ul>
-  {{#each recipeComment}}
-    <li>{{this.content}}</li>
-  {{/each}}
-</ul>
+  <ul>
+    {{#each recipeComment}}
+      <li>{{this.content}}</li>
+    {{#if this.isEdited}}
+      <p>Este mensaje ha sido editado</p>
+    {{/if}}
+  
+      <form
+        action="/recipes/{{this._id}}/{{this._id}}/edit"
+      >
+        <button>Editar</button>
+      </form>
+      <form
+        action="/recipes/{{this.recipe}}/{{this._id}}/delete"
+        method="POST"
+      >
+        <button>Borrar</button>
+      </form> 
+   
+       
+    {{/each}}
+   
+  </ul>
 
 {{/if}}
