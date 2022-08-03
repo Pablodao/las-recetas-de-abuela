@@ -49,34 +49,31 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 // GET "/recipes/:recipeId/details" => Render view with all the recipe details
 router.get("/:recipeId/details", async (req, res, next) => {
   const { recipeId } = req.params;
-
+  const isUserActive = res.locals.isUserActive;
   try {
-    let userLogged = false;
-    
     const selectedRecipe = await Recipe.findById(recipeId).populate("creator");
-   
-    if (req.session.user !== undefined) {
+
+    if (isUserActive === true) {
+      
+      let isfavourite = false;
+      const user = await User.findById(req.session.user._id);
+      if (user.favourites.includes(recipeId)) {
+        isfavourite = true;
+      }
 
       let isCreator = false;
       if (req.session.user._id == selectedRecipe.creator._id) {
         isCreator = true;
-        console.log( isCreator)
       }
-      let isfavourite = false;
-      userLogged = true;
-      const user = await User.findById(req.session.user._id);
 
-      if (user.favourites.includes(recipeId)) {
-        isfavourite = true;
-      }
       res.render("recipes/details.hbs", {
         selectedRecipe,
         isfavourite,
-        userLogged,
+        isUserActive,
         isCreator,
       });
     } else {
-      res.render("recipes/details.hbs", { selectedRecipe, userLogged });
+      res.render("recipes/details.hbs", { selectedRecipe, isUserActive });
     }
   } catch (err) {
     next(err);
