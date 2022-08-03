@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Recipe = require("../models/Recipe.model.js");
-const { isLoggedIn } = require("../middlewares/auth.js");
 const User = require("../models/User.model.js");
+const Comment = require("../models/Comment.model");
+const { isLoggedIn } = require("../middlewares/auth.js");
 
 //GET "/recipes" => Render a view with all the recipes
 router.get("/", async (req, res, next) => {
@@ -225,5 +226,7 @@ router.get("/my-favourites", async (req, res, next) => {
     next(err);
   }
 });
+
+//POST "recipes/:recipeId/new-comment" => Creates a new comment in the 
 
 module.exports = router;
