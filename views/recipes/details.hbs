@@ -45,4 +45,12 @@
     {{/if}}
   </form>
 
+  <h3>Deja tu comentario</h3>
+
+  <form action="/recipes/{{selectedRecipe._id}}/comment" method="POST">
+
+    <input type="text" name="content" />
+    <button>Añadir</button>
+  </form>
+
 {{/if}}

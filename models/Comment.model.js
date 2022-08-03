@@ -1,18 +1,22 @@
-const {Schema, model} = require ("mongoose");
+const { Schema, model } = require("mongoose");
 
-const commentSchema = newSchema(
+const commentSchema = new Schema(
   {
-    name:{
-        type:String,
-        required: true
+    content: {
+      type: String,
+      required: true,
     },
-    recipe:{
-        type: Schema.Type.ObjectId,
-        ref: "Recipe"
+    recipe: {
+      type: Schema.Types.ObjectId,
+      ref: "Recipe",
     },
     creator: {
-        type: Schema.Type.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    isEdited: {
+      type: Boolean,
+      default: false,
     },
   },
   {
@@ -20,7 +24,6 @@ const commentSchema = newSchema(
   }
 );
 
-
-const Comment = model("Comment" , commentSchema);
+const Comment = model("Comment", commentSchema);
 
 module.exports = Comment;

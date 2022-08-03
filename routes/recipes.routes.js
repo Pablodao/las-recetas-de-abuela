@@ -29,6 +29,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
     preparationtime,
     difficulty,
     category,
+    comments,
   } = req.body;
   try {
     const newRecipe = await Recipe.create({
@@ -40,6 +41,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
       difficulty,
       category,
       creator: req.session.user._id,
+      comments,
     });
     res.redirect(`/recipes/${newRecipe._id}/details`);
   } catch (err) {
@@ -55,7 +57,6 @@ router.get("/:recipeId/details", async (req, res, next) => {
     const selectedRecipe = await Recipe.findById(recipeId).populate("creator");
 
     if (isUserActive === true) {
-      
       let isfavourite = false;
       const user = await User.findById(req.session.user._id);
       if (user.favourites.includes(recipeId)) {
@@ -227,6 +228,24 @@ router.get("/my-favourites", async (req, res, next) => {
   }
 });
 
-//POST "recipes/:recipeId/new-comment" => Creates a new comment in the 
+//POST "recipes/:recipeId/comment" => Creates a new comment in the DB
+router.post("/:recipeId/comment", isLoggedIn, async (req, res, next) => {
+  const { recipeId } = req.params;
+  const { content } = req.body;
+
+  try {
+    const newComent = await Comment.create({
+      content,
+      recipe: recipeId,
+      creator: req.session.user._id,
+    });
+    await Recipe.findByIdAndUpdate(recipeId, {
+      $addToSet: { comment: newComent },
+    });
+    res.redirect(`/recipes/${recipeId}/details`);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
