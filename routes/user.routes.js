@@ -27,10 +27,32 @@ router.get("/myprofile/edit", isLoggedIn, async (req, res, next) => {
 router.post("/myprofile/edit",  isLoggedIn, uploader.single("avatar"),  async (req, res, next) => {
   const { username, email, avatar } = req.body;
   try {
+    const profileUser = await User.findById(req.session.user._id);
+    const foundUsername = await User.findOne({username});
+    if(foundUsername !== null){
+      res.render("./user/edit.hbs", {
+        errorMessage1: "El nombre de usuario ya se encuentra en uso", profileUser,
+      })
+    }
+    //todo SIN TERMINAR
+    const foundEmail = await User.findOne({email})
+    if(foundEmail !== null){
+      res.render("./user/edit.hbs", {
+        errorMessage2: "El nombre de usuario ya se encuentra en uso", profileUser,
+      })
+    }else{
+      
+    }
+    let imageAvatar = "";
+    if(req.file && req.file.path){
+      imageAvatar = req.file.path
+    }else{
+      imageAvatar = "./images/avatar2.jpg"
+    }
     await User.findByIdAndUpdate(req.session.user._id, {
       username,
       email,
-      avatar:req.file.path
+      avatar:imageAvatar,
     });
     res.redirect("/user/myprofile");
   } catch (err) {
