@@ -17,13 +17,14 @@ router.get("/", async (req, res, next) => {
 });
 
 //GET "/recipes" => Render a view with all the recipes
-router.get("/:category", async (req, res, next) => {
-  const {category} = req.params
-  console.log(category)
-  try {
-    const recipeList = await Recipe.find({category});
+router.get("/:categoryType", async (req, res, next) => {
+  const {categoryType} = req.params
+  console.log(categoryType)
 
-    res.render("recipes/filtered-list.hbs", { recipeList });
+  try {
+    const recipeList = await Recipe.find({category: categoryType });
+
+    res.render("recipes/filtered-list.hbs", { recipeList,categoryType  });
   } catch (err) {
     next(err);
   }
