@@ -1,4 +1,11 @@
 
-<h1>Lista de de recetas de: {{categoryType}}</h1>
+<h1>Lista de de recetas de {{categoryType}}</h1>
 
-{{}}
+{{#each recipeList}}
+
+<img src="{{this.image}}" alt="foto de la receta" width="200px">
+<a href="/recipes/{{this._id}}/details">{{this.name}}</a>
+<p>{{this.difficulty}}</p>
+<p>{{this.category}}</p>
+
+{{/each}}
