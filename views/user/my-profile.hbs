@@ -1,9 +1,13 @@
-<h2>Mi perfil</h2>
+<div class="position-absolute top-50 start-50 translate-middle"
+  style="width:400px">
+<h2 class="mb-4" style="color:#CD5C5C">Mi perfil</h2>
 
 <p>Nombre de usuario: {{profileUser.username}}</p>
 <p>Avatar: </p><img src="{{profileUser.avatar}}" alt="avatar" width="100px">
-<p>Categoria:{{profileUser.category}}</p>
-<p>email: {{profileUser.email}}</p>
+<p>Categoria: {{profileUser.category}}</p>
+<p>Email: {{profileUser.email}}</p>
 
 
-<a href="/user/myprofile/edit"><button>Modificar</button></a>
+<a href="/user/myprofile/edit"><button class="btn btn-outline-secondary">Modificar</button></a>
+
+</div>
