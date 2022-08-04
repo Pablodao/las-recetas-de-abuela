@@ -1,16 +1,37 @@
-<div>
-  <h2>Acceder a la página</h2>
+<div
+  class="position-absolute top-50 start-50 translate-middle"
+  style="width:400px"
+>
+  <h2 class="mb-4" style="color:#cf8278">Iniciar sesión</h2>
 
   <form action="/auth/login" method="POST">
-    <label for="username">Nombre del usuario o Correo electrónico</label>
-    <input type="text" name="access" />
+    <div class="form-floating mb-3">
+
+      <input
+        type="text"
+        name="access"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Nombre de usuario/email"
+      />
+      <label for="access">Nombre del usuario o Correo electrónico</label>
+      {{usernameErrorMessage}}
+    </div>
+
+    <div class="form-floating mb-4">
+
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Contraseña"
+      />
+      <label for="password">Contraseña</label>
+      {{passwordErrorMessage}}
+    </div>
     <p>{{errorMessage}}</p>
-    <br />
-    <label for="password">Contraseña</label>
-    <input type="password" name="password" />
-     <p>{{passwordErrorMessage}}</p>
-    <br /> 
-    <button>Acceder</button>
+    <button class="btn btn-outline-secondary">Iniciar sesión</button>
 
   </form>
 
