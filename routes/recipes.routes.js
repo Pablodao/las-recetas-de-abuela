@@ -18,13 +18,13 @@ router.get("/", async (req, res, next) => {
 
 //GET "/recipes" => Render a view with all the recipes
 router.get("/category/:categoryType", async (req, res, next) => {
-  const {categoryType} = req.params
-  console.log(categoryType)
+  const { categoryType } = req.params;
+  console.log(categoryType);
 
   try {
-    const recipeList = await Recipe.find({category: categoryType });
+    const recipeList = await Recipe.find({ category: categoryType });
 
-    res.render("recipes/filtered-list.hbs", { recipeList,categoryType  });
+    res.render("recipes/filtered-list.hbs", { recipeList, categoryType });
   } catch (err) {
     next(err);
   }
@@ -35,12 +35,18 @@ router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
 });
 //POST "/recipes/create" => Creates a recipe in the DB and redirect
-router.post(
-  "/create",
-  isLoggedIn,
-  uploader.single("image"),
-  async (req, res, next) => {
-    const {
+router.post("/create", isLoggedIn, async (req, res, next) => {
+  const {
+    name,
+    instructions,
+    image,
+    ingredients,
+    preparationtime,
+    difficulty,
+    category,
+  } = req.body;
+  try {
+    const newRecipe = await Recipe.create({
       name,
       instructions,
       image,
@@ -48,24 +54,13 @@ router.post(
       preparationtime,
       difficulty,
       category,
-    } = req.body;
-    try {
-      const newRecipe = await Recipe.create({
-        name,
-        instructions,
-        image: req.file.path,
-        ingredients,
-        preparationtime,
-        difficulty,
-        category,
-        creator: req.session.user._id,
-      });
-      res.redirect(`/recipes/${newRecipe._id}/details`);
-    } catch (err) {
-      next(err);
-    }
+      creator: req.session.user._id,
+    });
+    res.redirect(`/recipes/${newRecipe._id}/details`);
+  } catch (err) {
+    next(err);
   }
-);
+});
 
 // GET "/recipes/:recipeId/details" => Render view with all the recipe details
 router.get("/:recipeId/details", async (req, res, next) => {
@@ -166,10 +161,16 @@ router.post(
       category,
     } = req.body;
     try {
+      let imageRecipe = "";
+      if (req.file && req.file.path) {
+        imageRecipe = req.file.path;
+      } else {
+        imageRecipe = image;
+      }
       await Recipe.findByIdAndUpdate(recipeId, {
         name,
         instructions,
-        image: req.file.path,
+        image: imageRecipe,
         ingredients,
         preparationtime,
         difficulty,
@@ -252,21 +253,25 @@ router.get("/my-favourites", async (req, res, next) => {
   }
 });
 
-router.post("/:recipeId/my-favourites/isfavourite", isLoggedIn, async (req, res, next) => {
-  const { recipeId } = req.params;
-  try {
-    //si la receta esta en la lista de favoritos del usuario
-    const user = await User.findById(req.session.user._id);
-    if (user.favourites.includes(recipeId)) {
-      await User.findByIdAndUpdate(req.session.user._id, {
-        $pull: { favourites: recipeId },
-      });
+router.post(
+  "/:recipeId/my-favourites/isfavourite",
+  isLoggedIn,
+  async (req, res, next) => {
+    const { recipeId } = req.params;
+    try {
+      //si la receta esta en la lista de favoritos del usuario
+      const user = await User.findById(req.session.user._id);
+      if (user.favourites.includes(recipeId)) {
+        await User.findByIdAndUpdate(req.session.user._id, {
+          $pull: { favourites: recipeId },
+        });
+      }
+      res.redirect(`/recipes/my-favourites`);
+    } catch (err) {
+      next(err);
     }
-    res.redirect(`/recipes/my-favourites`);
-  } catch (err) {
-    next(err);
   }
-});
+);
 
 //POST "recipes/:recipeId/comment" => Creates a new comment in the DB
 router.post("/:recipeId/comment", isLoggedIn, async (req, res, next) => {
