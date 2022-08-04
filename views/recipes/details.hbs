@@ -1,20 +1,37 @@
-<h1>{{selectedRecipe.name}}</h1>
-<img src="{{selectedRecipe.image}}" alt="Imagen de la receta " width="400px" />
 
-<h3>Instrucciones: </h3>
-<p>{{selectedRecipe.instructions}}</p>
-<br />
+<h2 class="mb-4 mt-5 " style="color:#CD5C5C">Detalles de la Receta</h2>
+<div class="card mb-3 position-relative top-100 start-50 translate-middle" style="max-width: 940px; height:800px; ">
+  <div class="card"> 
+      <h5 class=class="card-header" >{{selectedRecipe.name}}</h5>
+  </div>
+
+  <div class="row g-0">
+    <div class="col-md-4">
+
+    <img class="img-fluid rounded-start" src="{{selectedRecipe.image}}" alt="Imagen de la receta " width="400px" />
+
+  <div class="col-md-8">
+      <div class="card-body">
+
+
+        <h5  class="card-title">Instrucciones: </h5>
+        <p class="card-text">{{selectedRecipe.instructions}}</p>
+      </div>
+      
+
+         
+           
 {{#if isUserActive}}
   {{#if isCreator}}
-    <form action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
+    <form class="card-text" action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
       <label for="ingredients">Agregar ingredientes:</label>
       <input type="text" name="ingredients" />
-      <button>Añadir</button>
+      <button class="btn btn-outline-secondary">Añadir</button>
     </form>
   {{/if}}
 {{/if}}
-
-<h3>Ingredientes: </h3>
+</div>
+<h5>Ingredientes: </h5>
 <ul>
   {{#each selectedRecipe.ingredients}}
     <li>{{this}}</li>
@@ -26,50 +43,56 @@
 {{#if isUserActive}}
 
   {{#if isCreator}}
-    <button><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
+    <button class="btn btn-outline-secondary"><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
     <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
       >Borrar Receta</button></form>
 
   {{/if}}
+    </div>
   <form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST">
     {{#if isfavourite}}
 
-      <button>
+      <button class="btn btn-outline-success">
         Quitar de favoritos
       </button>
     {{else}}
-      <button>
+      <button class="btn btn-outline-danger">
         Añadir a favoritos
       </button>
 
     {{/if}}
   </form>
+ </div>
+</div>
 
-  <h3>Deja tu comentario</h3>
+
+
+<div class="card position-relative top-50 start-50 translate-middle" style="max-width: 940px;">
+  <h5 class="card-title">Deja tu comentario</h5>
 
   <form action="/recipes/{{selectedRecipe._id}}/comment" method="POST">
 
     <input type="text" name="content" />
-    <button>Añadir</button>
+    <button class="btn btn-outline-secondary">Añadir</button>
   </form>
 
   <ul>
     {{#each recipeComment}}
       <li>{{this.content}}</li>
     {{#if this.isEdited}}
-      <p>Este mensaje ha sido editado</p>
+      <p class="card-text">Este mensaje ha sido editado</p>
     {{/if}}
   
       <form
         action="/recipes/{{this._id}}/{{this._id}}/edit"
       >
-        <button>Editar</button>
+        <button class="btn btn-outline-secondary">Editar</button>
       </form>
       <form
         action="/recipes/{{this.recipe}}/{{this._id}}/delete"
         method="POST"
       >
-        <button>Borrar</button>
+        <button class="btn btn-outline-secondary">Borrar</button>
       </form> 
    
        
@@ -78,3 +101,6 @@
   </ul>
 
 {{/if}}
+</div>
+ </div>
+

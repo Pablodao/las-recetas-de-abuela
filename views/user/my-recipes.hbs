@@ -1,13 +1,26 @@
-<h1>Recetas creadas por mi</h1>
+<div class="position-absolute top-50 start-50 translate-middle"
+  style="width:400px">
+<h2 class="mb-3" style="color:#CD5C5C">Recetas creadas por mi</h2>
 
 {{#if hasRecipes}}
   {{#each myRecipes}}
-    {{this.name}}
-    <img src="{{this.image}}" alt="receta" />
-    <button><a href="/recipes/{{this._id}}/edit">Editar</a></button>
-    <form action="/recipes/{{this._id}}/delete" method="POST"><button>Borrar
-        Receta</button></form>
+    <h3>{{this.name}}</h3>
+
+    <img class="pb-3" src="{{this.image}}" alt="receta" width="200px" />
+    <div class=" mb-3">
+        <button class="btn btn-outline-secondary "><a href="/recipes/{{this._id}}/edit" style="text-decoration:none">Editar</a></button>
+    </div>
+
+    <form action="/recipes/{{this._id}}/delete" method="POST">
+
+     <div class=" mb-3">
+        <button class="btn btn-danger">
+          Borrar Receta
+          </button>
+      </div>
+    </form>
   {{/each}}
 {{else}}
   <p>Puedes crear una receta,<a href="/recipes/create">aquí</a>.</p>
 {{/if}}
+</div>

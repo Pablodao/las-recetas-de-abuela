@@ -1,16 +1,34 @@
-<h1>Mis recetas favoritas</h1>
-{{#if hasFavourites}}
-  {{#each favouriteList}}
-    <p>{{this.name}}</p>
-    <img src="{{this.image}}" alt="" width="200px" />
-    <a href="/recipes/{{this._id}}/details">Ver detalles</a>
-   <form action="/recipes/{{this._id}}/my-favourites/isfavourite" method="POST">
-      <button>
-        Quitar de favoritos
-      </button>
-  </form>
-  {{/each}}
+<div class="position-relative">
+
+  <h2 class="position-absolute top-0 start-50 translate-middle"
+     style="color:#CD5C5C">Mis recetas favoritas</h2>
+
+  {{#if hasFavourites}}
+  <div class="container text-center mt-5">
+    <div class="col align-items-center justify-content-between">
+      {{#each favouriteList}}
+        <div class="card mt-5 mx-3 text-center" style="width: 20rem;"> 
+            <h3>{{this.name}}</h3>
+            <img class="pb-3" src="{{this.image}}" alt="imagen" height="200px" />
+            <div  class="mb-4">
+               <a href="/recipes/{{this._id}}/details">Ver detalles</a>
+            </div>
+   
+            <form action="/recipes/{{this._id}}/my-favourites/isfavourite" method="POST">
+
+            <div class=" mb-3">
+            <button class="btn btn-outline-secondary ">
+                Quitar de favoritos
+            </button>
+            </div>
+            </form>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+</div>
     {{else}}
     <p>No has agregado ninguna receta a tus favoritos!</p>
 {{/if}}
+
 
