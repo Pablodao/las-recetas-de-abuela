@@ -4,18 +4,18 @@
   <form action="/auth/signup" method="POST">
     <label for="username">Nombre del usuario/a</label>
     <input type="text" name="username"/>
-    <p>{{errorMessage}}</p>
+    <p>{{usernameErrorMessage}}</p>
     <br />
     <label for="email">Correo electrónico</label>
     <input type="text" name="email" />
-    <p>{{errorMessage}}</p>
+    <p>{{emailErrorMessage}}</p>
     <br />
     <label for="password">Contraseña</label>
     <input type="password" name="password" />
+    <p>{{passwordErrorMessage}}</p>
+    <br />
     <p>{{errorMessage}}</p>
-    <br />
     <button>Crear usuario/a</button>
-    <br />
   </form>
 
 </div>
