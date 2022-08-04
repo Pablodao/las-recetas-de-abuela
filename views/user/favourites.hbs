@@ -4,8 +4,13 @@
     <p>{{this.name}}</p>
     <img src="{{this.image}}" alt="" width="200px" />
     <a href="/recipes/{{this._id}}/details">Ver detalles</a>
-    <button>Eliminar</button>
+   <form action="/recipes/{{this._id}}/my-favourites/isfavourite" method="POST">
+      <button>
+        Quitar de favoritos
+      </button>
+  </form>
   {{/each}}
     {{else}}
     <p>No has agregado ninguna receta a tus favoritos!</p>
 {{/if}}
+

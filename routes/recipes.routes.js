@@ -16,6 +16,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//GET "/recipes" => Render a view with all the recipes
+router.get("/:category", async (req, res, next) => {
+  const {category} = req.params
+  console.log(category)
+  try {
+    const recipeList = await Recipe.find({category});
+
+    res.render("recipes/filtered-list.hbs", { recipeList });
+  } catch (err) {
+    next(err);
+  }
+});
+
 //GET "/recipes/create" => Render create recipe form view
 router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
@@ -233,6 +246,22 @@ router.get("/my-favourites", async (req, res, next) => {
 
     console.log(favouriteList);
     res.render("user/favourites.hbs", { favouriteList, hasFavourites });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/:recipeId/my-favourites/isfavourite", isLoggedIn, async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+    //si la receta esta en la lista de favoritos del usuario
+    const user = await User.findById(req.session.user._id);
+    if (user.favourites.includes(recipeId)) {
+      await User.findByIdAndUpdate(req.session.user._id, {
+        $pull: { favourites: recipeId },
+      });
+    }
+    res.redirect(`/recipes/my-favourites`);
   } catch (err) {
     next(err);
   }
