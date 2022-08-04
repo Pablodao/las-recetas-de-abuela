@@ -238,6 +238,22 @@ router.get("/my-favourites", async (req, res, next) => {
   }
 });
 
+router.post("/:recipeId/my-favourites/isfavourite", isLoggedIn, async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+    //si la receta esta en la lista de favoritos del usuario
+    const user = await User.findById(req.session.user._id);
+    if (user.favourites.includes(recipeId)) {
+      await User.findByIdAndUpdate(req.session.user._id, {
+        $pull: { favourites: recipeId },
+      });
+    }
+    res.redirect(`/recipes/my-favourites`);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //POST "recipes/:recipeId/comment" => Creates a new comment in the DB
 router.post("/:recipeId/comment", isLoggedIn, async (req, res, next) => {
   const { recipeId } = req.params;
