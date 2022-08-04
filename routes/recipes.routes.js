@@ -35,7 +35,7 @@ router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
 });
 //POST "/recipes/create" => Creates a recipe in the DB and redirect
-router.post("/create", isLoggedIn, async (req, res, next) => {
+router.post("/create", isLoggedIn, uploader.single("image"), async (req, res, next) => {
   const {
     name,
     instructions,
@@ -46,10 +46,16 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
     category,
   } = req.body;
   try {
+    let imageRecipe = ""
+    if(req.file && req.file.path){
+      imageRecipe = req.file.path
+    }else{
+      imageRecipe = image
+    }
     const newRecipe = await Recipe.create({
       name,
       instructions,
-      image,
+      image: imageRecipe,
       ingredients,
       preparationtime,
       difficulty,

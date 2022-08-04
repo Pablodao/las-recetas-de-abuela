@@ -12,7 +12,7 @@ const recipeSchema = new Schema(
     },
     image: {
       type: String,
-      default: "./images/plato.jpg", 
+      default: "/images/plato.jpg", 
     },
     ingredients: [""],
     preparationtime: Number,
