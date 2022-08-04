@@ -23,14 +23,14 @@ const recipeSchema = new Schema(
     category: {
       type: String,
       enum: [
-        "ensalada",
-        "sopa",
-        "guiso",
-        "carne",
-        "pescado",
-        "pasta",
-        "arroz",
-        "postre",
+        "Ensalada",
+        "Sopa",
+        "Guiso",
+        "Carne",
+        "Pescado",
+        "Pasta",
+        "Arroz",
+        "Postre",
       ],
     },
     creator: {
