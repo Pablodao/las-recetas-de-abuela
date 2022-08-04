@@ -12,7 +12,7 @@ const recipeSchema = new Schema(
     },
     image: {
       type: String,
-      default: "", //TODO NOS FALTA URL SEGUN EL TIPO DE CATEGORIA DE PLATO
+      default: "/images/plato.jpg", 
     },
     ingredients: [""],
     preparationtime: Number,
