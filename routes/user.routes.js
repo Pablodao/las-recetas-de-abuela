@@ -30,8 +30,6 @@ router.post(
   uploader.single("avatar"),
   async (req, res, next) => {
     const { username, email, avatar } = req.body;
-    console.log("USERNAME", req.session.user.username);
-    console.log("USERNAME BODY", username);
     try {
       // const profileUser = await User.findById(req.session.user._id);
       // const foundUsername = await User.findOne({ username });

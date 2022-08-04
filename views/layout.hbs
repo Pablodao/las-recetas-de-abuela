@@ -32,7 +32,7 @@
                         <li><a class="dropdown-item" href="/recipes/category/Carne">Carnes</a></li>
                         <li><a class="dropdown-item" href="/recipes/category/Pescado">Pescados</a></li>
                         <li><a class="dropdown-item" href="/recipes/category/Pasta">Pastas</a></li>
-                        <li><a class="dropdown-item" href="/recipes/category/Arro<">Arroces</a></li>
+                        <li><a class="dropdown-item" href="/recipes/category/Arroz">Arroces</a></li>
                         <li><a class="dropdown-item" href="/recipes/category/Postre">Postres</a></li>
                      </ul>
                   </li>
@@ -48,16 +48,18 @@
                         <li><a class="dropdown-item" href="/recipes/my-recipes">Recetas creadas</a></li>
                      </ul>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item position-absolute bottom-30 end-0">
                      <a class="nav-link" href="/auth/logout">Cerrar Sesión</a>
                   </li>
                   {{else}}
-                  <li class="nav-item">
+                  <div class="d-flex justify-content-around position-absolute bottom-30 end-0 "> 
+                  <li class="nav-item ">
                      <a class="nav-link" href="/auth/signup">Registrate</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item ">
                      <a class="nav-link" href="/auth/login">Acceso</a>
                   </li>
+                  </div>
                   {{/if}}
                </ul>
             </div>
