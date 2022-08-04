@@ -67,21 +67,22 @@
 <ul class="list-group list-group-flush mt-5 " style="width: 500px;">
 
   {{#each selectedRecipe.ingredients}}
-  <div class=" row align-items-center mb-3 ">
-    <li class="list-group-item col-sm-6 col-md-8" style="width: 200px ;">{{this}}</li>
-  <div class="col">
-    <form action="/recipes/{{../selectedRecipe._id}}/ingredients/delete" method="POST" >
-        <input type="hidden" name="ingredients" value="{{this}}" style="width: 100px;">
-        <button  class="btn btn-outline-danger row g-2 mt-3" >X</button>     
-    </form>
+    <div class=" row align-items-center mb-3 ">
+      <li class="list-group-item col-sm-6 col-md-8" style="width: 200px ;">{{this}}</li>
+      <div class="col">
+        <form action="/recipes/{{../selectedRecipe._id}}/ingredients/delete" method="POST" >
+            <input type="hidden" name="ingredients" value="{{this}}" style="width: 100px;">
+            <button  class="btn btn-outline-danger row g-2 mt-3" >X</button>     
+        </form>
 
-  </div>
-  </div>
-  </div>
+      </div>
+    </div>
   {{/each}}
 
 </ul>
   <button class="btn btn-outline-success" >Editar Receta</button>
+
+
 </div>
 
 
