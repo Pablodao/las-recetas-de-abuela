@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //GET "/recipes" => Render a view with all the recipes
-router.get("/:categoryType", async (req, res, next) => {
+router.get("/category/:categoryType", async (req, res, next) => {
   const {categoryType} = req.params
   console.log(categoryType)
 
