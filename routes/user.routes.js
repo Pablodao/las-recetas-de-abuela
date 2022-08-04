@@ -41,13 +41,13 @@ router.post("/myprofile/edit",  isLoggedIn, uploader.single("avatar"),  async (r
         errorMessage2: "El nombre de usuario ya se encuentra en uso", profileUser,
       })
     }else{
-      
+
     }
     let imageAvatar = "";
     if(req.file && req.file.path){
       imageAvatar = req.file.path
     }else{
-      imageAvatar = "./images/avatar2.jpg"
+      imageAvatar = avatar
     }
     await User.findByIdAndUpdate(req.session.user._id, {
       username,
