@@ -1,11 +1,13 @@
 <div class="position-relative">
-  <h1
-    class="position-absolute top-0 start-50 translate-middle"
-    style="color: #9ACD32;"
-  >Lista de de recetas de {{categoryType}}</h1>
 
-  <div class="container text-center mt-5 ">
+  <div class="container text-center mt-5">
     <div class="row align-items-center justify-content-evenly">
+
+      <h1
+        class="position-relative top-0 start-50 translate-middle  mx-5 mt-5"
+        style="color: #9ACD32;"
+      >Lista de de recetas de {{categoryType}}</h1>
+
       {{#each recipeList}}
         <div class="card mt-5 mx-3" style="width: 18rem;">
           <img
