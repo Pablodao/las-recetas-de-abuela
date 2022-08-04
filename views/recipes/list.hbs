@@ -1,8 +1,28 @@
-<h1>Lista de Recetas</h1>
+<div class="justify-content-center">
+  <h1>Lista de Recetas</h1>
+</div>
 
-{{#each recipeList}}
-<img src="{{this.image}}" alt="foto de la receta" width="200px">
-<a href="/recipes/{{this._id}}/details">{{this.name}}</a>
-<p>{{this.difficulty}}</p>
-<p>{{this.category}}</p>
-{{/each}}
+<div class="container text-center mt-5">
+  <div class="row align-items-start justify-content-between">
+    {{#each recipeList}}
+      <div class="card" style="width: 18rem;">
+        <img
+          src="{{this.image}}"
+          class="card-img-top"
+          alt="Foto de la receta"
+          height="200px"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{this.name}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Dificultad: {{this.difficulty}}</li>
+          <li class="list-group-item">Categoría: {{this.category}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="/recipes/{{this._id}}/details" class="card-link">Ver receta</a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
