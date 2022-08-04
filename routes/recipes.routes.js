@@ -16,6 +16,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//GET "/recipes" => Render a view with all the recipes
+router.get("/:category", async (req, res, next) => {
+  const {category} = req.params
+  console.log(category)
+  try {
+    const recipeList = await Recipe.find({category});
+
+    res.render("recipes/filtered-list.hbs", { recipeList });
+  } catch (err) {
+    next(err);
+  }
+});
+
 //GET "/recipes/create" => Render create recipe form view
 router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("recipes/new-recipe.hbs");
