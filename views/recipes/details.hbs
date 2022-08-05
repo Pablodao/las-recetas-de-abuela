@@ -71,29 +71,31 @@
   </div>
   </div>
   </div>
-  </div>
-  </div>
+  
+  
 
 
-<div class="mt-1 row align-items-center">
+  {{!-- <div class="mt-1 row align-items-center">
  
-  <div class="card position-relative top-50 start-50 translate-middle" style="max-width: 920px; height:600px;">
+  <div class="card position-relative top-50 start-50 translate-middle" style="max-width: 920px; height:600px;"> --}}
+    <div class="d-flex row justify-content-center">
+      <div> 
       <h5 class="card-title mt-1 mx-2">Deja tu comentario</h5>
 
         <form action="/recipes/{{selectedRecipe._id}}/comment" method="POST">
           <input class=" mx-2" type="text" name="content"style="height: 50px; width: 740px ;" >
            <button class="btn btn-outline-secondary">Añadir</button>
         </form>
-
+      </div>
       <ul>
         {{#each recipeComment}}
-           <li>{{this.content}}</li>
+           <li style="list-style:none">{{this.content}}</li>
           {{#if this.isEdited}}
      
            <p class="card-text">Este mensaje ha sido editado</p>
           {{/if}}
-      
-        <div class="d-flex flex-direction-row">
+        
+        <div class="d-flex flex-direction-row justify-content-center">
           <form
            action="/recipes/{{this._id}}/{{this._id}}/edit"
             >
@@ -119,4 +121,6 @@
     {{/if}}
  
   </div>
+</div>
+</div>
 </div>
