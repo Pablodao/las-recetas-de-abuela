@@ -1,36 +1,31 @@
-
-<h2 class="mb-4 mt-5 " style="color:#CD5C5C">Detalles de la Receta</h2>
-<div class="card mb-3 position-relative top-100 start-50 translate-middle" style="max-width: 940px; height:800px; ">
-  <div class="card"> 
-      <h5 class=class="card-header" >{{selectedRecipe.name}}</h5>
-  </div>
-
-  <div class="row g-0">
-    <div class="col-md-4">
-
-    <img class="img-fluid rounded-start" src="{{selectedRecipe.image}}" alt="Imagen de la receta " width="400px" />
-
-  <div class="col-md-8">
-      <div class="card-body">
-
-
-        <h5  class="card-title">Instrucciones: </h5>
-        <p class="card-text">{{selectedRecipe.instructions}}</p>
-      </div>
+<div class="position-relative">
+<h2 class="mt-4 mb-2 position-absolute top-0 start-50 translate-middle" style="color:#CD5C5C">Detalles de la Receta</h2>
+<div class="container text-center mt-5" style="max-width: 940px; height:900px; ">
+  <div class="mt-5 row align-items-center justify-content-evenly"></div>
+    <div class="card mt-5"> 
+      <h5 class="card-header" >{{selectedRecipe.name}}</h5>
+    </div>
+    <div class="card"> 
+      <div class="row g-0">
+        <div class="col-md-4 align-items-center">
+        <img class="img-fluid rounded-start" src="{{selectedRecipe.image}}" alt="Imagen de la receta" width="400px" />
+        </div>
+        <div class="card-body">
+           <h5  class="card-title">Instrucciones: </h5>
+           <p class="card-text">{{selectedRecipe.instructions}}</p>
+         </div>
       
-
-         
-           
-{{#if isUserActive}}
-  {{#if isCreator}}
-    <form class="card-text" action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
+  {{#if isUserActive}}
+  {{#if isCreator}}    
+    <div>
+   <form class="card-text" action="/recipes/{{selectedRecipe._id}}/ingredients" method="POST">
       <label for="ingredients">Agregar ingredientes:</label>
       <input type="text" name="ingredients" />
       <button class="btn btn-outline-secondary">Añadir</button>
     </form>
   {{/if}}
 {{/if}}
-</div>
+
 <h5>Ingredientes: </h5>
 <ul>
   {{#each selectedRecipe.ingredients}}
@@ -38,41 +33,52 @@
   {{/each}}
 </ul>
 
-<p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
+</div>       
+           
 
+ 
+<div> 
+<p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
+</div>
 {{#if isUserActive}}
 
   {{#if isCreator}}
-    <button class="btn btn-outline-secondary"><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
-    <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button
+  
+  <div class="d-flex flex-direction-row mx-2 align-items-center justify-content-evenly">
+    
+    <button class="btn btn-outline-secondary mx-2"><a href="/recipes/{{selectedRecipe._id}}/edit">Editar</a></button>
+    <form action="/recipes/{{selectedRecipe._id}}/delete" method="POST"><button class="btn btn-dark mx-2"
       >Borrar Receta</button></form>
-
+   
   {{/if}}
-    </div>
+    
   <form action="/recipes/{{selectedRecipe._id}}/isfavourite" method="POST">
     {{#if isfavourite}}
-
-      <button class="btn btn-outline-success">
+   
+      <button class="btn btn-outline-success mx-2">
         Quitar de favoritos
       </button>
     {{else}}
       <button class="btn btn-outline-danger">
         Añadir a favoritos
       </button>
+     </div>
 
     {{/if}}
   </form>
+  </div>
  </div>
 </div>
+</div>
+</div>
 
-
-
-<div class="card position-relative top-50 start-50 translate-middle" style="max-width: 940px;">
-  <h5 class="card-title">Deja tu comentario</h5>
+  <div class="mt-1 row align-items-center">
+ 
+  <div class="card position-relative top-50 start-50 translate-middle" style="max-width: 920px;">
+  <h5 class="card-title mt-1 mx-2">Deja tu comentario</h5>
 
   <form action="/recipes/{{selectedRecipe._id}}/comment" method="POST">
-
-    <input type="text" name="content" />
+    <input class=" mx-2" type="text" name="content"style="height: 50px; width: 740px ;" >
     <button class="btn btn-outline-secondary">Añadir</button>
   </form>
 
@@ -83,24 +89,29 @@
       <p class="card-text">Este mensaje ha sido editado</p>
     {{/if}}
   
+    <div class="d-flex flex-direction-row">
       <form
         action="/recipes/{{this._id}}/{{this._id}}/edit"
       >
-        <button class="btn btn-outline-secondary">Editar</button>
+      
+        <button class="btn btn-outline-secondary mx-2">Editar</button>
       </form>
       <form
         action="/recipes/{{this.recipe}}/{{this._id}}/delete"
         method="POST"
       >
         <button class="btn btn-outline-secondary">Borrar</button>
+        
       </form> 
-   
+      </div>
+  </div>
+   </div>
        
     {{/each}}
    
   </ul>
 
 {{/if}}
-</div>
- </div>
 
+ 
+</div>
