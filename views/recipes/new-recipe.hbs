@@ -1,37 +1,58 @@
-<h1>Crea tu receta</h1>
+<div class="position-absolute top-50 start-50 translate-middle">
 
-<form action="/recipes/create" method="POST" enctype="multipart/form-data">
+  <h1>Crea tu receta</h1>
 
-  <label for="name">Nombre de la Receta: </label>
-  <input type="text" name="name" />
-  <br />
-    <label for="image">Imagen</label>
-  <input type="file" name="image"> 
-  <br>
-  <label for="instructions">Instrucciones</label>
-  <input type="text" name="instructions" />
-  <br />
-  <label for="category">Categoria</label>
-  <select name="category">
-    <option value="Ensalada">Ensalada</option>
-    <option value="Carne">Carne</option>
-    <option value="Pescado">Pescado</option>
-    <option value="Sopa">Sopa</option>
-    <option value="Pasta">Pastas</option>
-    <option value="Arroz">Arroces</option>
-    <option value="Guiso">Guisos</option>
-    <option value="Postre">Postres</option>
-  </select>
-  <br />
-  <label for="difficulty">Dificultad</label>
-  <select name="difficulty">
-    <option value="Baja">Baja</option>
-    <option value="Media">Media</option>
-    <option value="Alta">Alta</option>
-  </select>
-  <br />
-  <label for="preparationtime">Tiempo (en minutos):</label>
-  <input type="text" name="preparationtime" />
-  <br />
-  <button>Crear Receta</button>
-</form>
+  <form action="/recipes/create" method="POST" enctype="multipart/form-data">
+    <div class="mb-2 row g-2">
+      <label for="name">Nombre de la Receta: </label>
+      <input type="text" name="name" style="width: 500px ;"/>
+    </div>
+
+   
+
+    <div class=" mb-3 row g-2">
+        <label for="image" class="form-label ">Imagen</label>
+        <input type="file" name="image" class="form-control" style="width: 300px ;"/>
+    </div>
+
+    <div class="mt-4 mb-4 row g-2">
+      <label for="instructions">Instrucciones</label>
+        <input type="text" name="instructions"  style="width: 500px ;"/>
+    </div>
+
+    <div class="mb-4 row g-2">
+
+      <label for="category">Categoria</label>
+      <select name="category" style="width: 100px ;">
+        <option value="Ensalada">Ensalada</option>
+        <option value="Carne">Carne</option>
+        <option value="Pescado">Pescado</option>
+        <option value="Sopa">Sopa</option>
+        <option value="Pasta">Pastas</option>
+        <option value="Arroz">Arroces</option>
+        <option value="Guiso">Guisos</option>
+        <option value="Postre">Postres</option>
+      </select>
+
+    </div>
+
+    <div class="mb-4 row g-2">
+      <label for="difficulty">Dificultad</label>
+      <select name="difficulty" style="width: 80px ;">
+        <option value="Baja">Baja</option>
+        <option value="Media">Media</option>
+        <option value="Alta">Alta</option>
+      </select>
+    </div>
+
+    <div class=" mb-2 row g-2">
+  <label for="preparationtime">Tiempo(min): </label>
+  <input type="text" name="preparationtime" style="width: 90px;" />
+</div>
+<div class="position-absolute top-100 start-50 translate-middle">
+ <button  class="btn btn-outline-success mt-5" style=" width: 200px ;" >Crear Receta</button>
+</div>
+   
+  </form>
+
+</div>
