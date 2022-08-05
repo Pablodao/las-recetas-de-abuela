@@ -3,9 +3,9 @@
   class="position-absolute top-50 start-50 translate-middle"
   style="width:700px height:100px margin: top 50px;"
 >
-  <div class="card" style="width: 600px;">
+  <div class="card p-5" style="width: 600px;">
 
-  <h2 class="mb-4 mt-5" style="color:#CD5C5C">Actualizar Perfil</h2>
+  <h2 class="mb-5 mt-1" style="color:#CD5C5C">Actualizar Perfil</h2>
 
   <form
     action="/user/myprofile/edit"
@@ -31,7 +31,7 @@
     </div>
     <div class=" mb-2 row g-2">
       <label for="username">Nombre de Usuario</label>
-      <input type="text" name="username" value="{{profileUser.username}}" />
+      <input type="text" name="username" value="{{profileUser.username}} "  style="width: 300px;"/>
       
       <p>{{usernameErrorMessage}}</p>
     </div>

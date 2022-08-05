@@ -1,13 +1,24 @@
-<div class="position-absolute top-50 start-50 translate-middle"
-  style="width:400px">
-<h2 class="mb-4" style="color:#CD5C5C">Mi perfil</h2>
+<div
+  class="position-relative top-50 start-50 translate-middle"
+  style="width:400px"
+>
+  <div class="card p-5" style="width: 450px;">
 
-<p>Nombre de usuario: {{profileUser.username}}</p>
-<p>Avatar: </p><img src="{{profileUser.avatar}}" alt="avatar" width="100px">
-<p>Categoria: {{profileUser.category}}</p>
-<p>Email: {{profileUser.email}}</p>
+    <h2 class="mb-4" style="color:#CD5C5C">Mi perfil</h2>
 
+    <p>Nombre de usuario: {{profileUser.username}}</p>
+    <p>Avatar: </p><img
+      src="{{profileUser.avatar}}"
+      alt="avatar"
+      width="100px"
+    />
+    <p>Categoria: {{profileUser.category}}</p>
+    <p>Email: {{profileUser.email}}</p>
 
-<a href="/user/myprofile/edit"><button class="btn btn-outline-secondary">Modificar</button></a>
+    <a href="/user/myprofile/edit"><button
+        class="btn btn-outline-secondary"
+      >Modificar</button></a>
+
+  </div>
 
 </div>
