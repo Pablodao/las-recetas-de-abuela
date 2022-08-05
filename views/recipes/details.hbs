@@ -1,21 +1,22 @@
 <div class="position-relative">
-<h2 class="mt-4 mb-2 position-absolute top-0 start-50 translate-middle" style="color:#CD5C5C">Detalles de la Receta</h2>
-<div class="card">
-<div class="container text-center mt-5" style="max-width: 940px; height:900px; ">
-  <div class="mt-5 row align-items-center justify-content-evenly"></div>
+  <h2 class="mt-4 mb-2 position-absolute top-0 start-50 translate-middle" style="color:#CD5C5C">Detalles de la Receta</h2>
+  
+    <div class="container text-center mt-5" style="max-width: 940px; height:900px; ">
+  <div class="mt-5 row align-items-center ">
+
     <div class="card mt-5"> 
       <h5 class="card-header" >{{selectedRecipe.name}}</h5>
     </div>
-    <div class="card"> 
-      <div class="row g-0">
-        <div class="col-md-4 align-items-center">
-        <img class="img-fluid rounded-start" src="{{selectedRecipe.image}}" alt="Imagen de la receta" width="400px" />
-        </div>
-        <div class="card-body">
+      <div class="card justify-content-left"> 
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="img-fluid rounded-start" src="{{selectedRecipe.image}}" alt="Imagen de la receta" width="400px" />
+          </div>
+        <div class="card-body ">
            <h5  class="card-title">Instrucciones: </h5>
            <p class="card-text">{{selectedRecipe.instructions}}</p>
          </div>
-      
+
   {{#if isUserActive}}
   {{#if isCreator}}    
     <div>
@@ -25,23 +26,23 @@
       <button class="btn btn-outline-secondary">Añadir</button>
     </form>
   {{/if}}
-{{/if}}
+  {{/if}}
 
-<h5>Ingredientes: </h5>
-<ul>
+  <h5>Ingredientes: </h5>
+  <ul>
   {{#each selectedRecipe.ingredients}}
     <li style="list-style:none">{{this}}</li>
   {{/each}}
-</ul>
+  </ul>
 
-</div>       
+  </div>       
            
 
  
-<div> 
-<p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
-</div>
-{{#if isUserActive}}
+  <div> 
+  <p>Tiempo de preparación: {{selectedRecipe.preparationtime}} min</p>
+  </div>
+  {{#if isUserActive}}
 
   {{#if isCreator}}
   
@@ -72,6 +73,7 @@
 </div>
 </div>
 </div>
+
 
   <div class="mt-1 row align-items-center">
  
