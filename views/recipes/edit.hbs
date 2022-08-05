@@ -10,20 +10,20 @@
 
     <div class=" mb-3">
       <label for="image" class="form-label ">Cambiar imágen</label>
-      <input type="file" name="image" class="form-control" style="width: 500px ;"/>
+      <input type="file" name="image" class="form-control" style="width: 500px"/>
     </div>
 
     <div class=" mb-2 row g-2">
       <label for="name">Nombre de la Receta: </label>
-      <input type="text" name="name" value="{{selectedRecipe.name}}" style="width: 500px ;" />
+      <input type="text" name="name" value="{{selectedRecipe.name}}" style="width: 500px" />
     </div>
 
     <div class=" mt-4 mb-2 row g-2">
-      <label for="instructions">Instrucciones</label>
-      <textarea class="form-control"  placeholder="Instrucciones" id="instructions" style="height: 100px; width: 400px ;">
-        {{selectedRecipe.instructions}}
-      </textarea>
+    <label for="instructions">Instrucciones</label>
+    <input type="text" name="instructions" value="{{selectedRecipe.instructions}}" style="height: 50px; width: 400px ;" />
     </div>
+
+
 
 
 
@@ -68,7 +68,25 @@
 
     </div>
   {{!-- TODO Comprobar porque el boton solo funciona hasta aquí --}}
-     {{!-- <button class="btn btn-outline-success" >Editar Receta</button> --}}
+     
+ 
+  <button class="btn btn-outline-success">Editar Receta</button>
+ </form>
+
+     <div>
+
+        <form action="/recipes/{{selectedRecipe._id}}/ingredients/edit" method="POST">
+
+          <div class=" mb-2 row g-2">
+
+            <label for="ingredients">Agregar ingredientes:</label>
+            <input type="text" name="ingredients" style="width: 500px; margin-right: 20px" />
+            <button class="btn btn-outline-success" style=" width: 100px ;">Añadir </button>
+          </div>
+        </form>
+
+    </div>
+
 
 
 
@@ -101,27 +119,11 @@
               
     </ul>
 
-    <div>
+  {{!-- TODO Posicion original del boton  --}}
 
-          <form action="/recipes/{{selectedRecipe._id}}/ingredients/edit" method="POST">
 
-          <div class=" mb-2 row g-2">
 
-            <label for="ingredients">Agregar ingredientes:</label>
-            <input type="text" name="ingredients" style="width: 500px; margin-right: 20px" />
-            <button class="btn btn-outline-success" style=" width: 100px ;">Añadir </button>
-          </div>
-          </form>
-
-    </div>
-  <a href="/recipes/{{selectedRecipe._id}}/details">
-
-  <button class="btn btn-outline-success" >Editar Receta</button>
-
-  </a>
-  
-
-  </form>
+ 
 
 </div>
 
