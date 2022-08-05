@@ -88,11 +88,13 @@
         </form>
       </div>
       <ul>
+        
+
         {{#each recipeComment}}
            <li style="list-style:none">{{this.content}}</li>
           {{#if this.isEdited}}
      
-           <p class="card-text">Este mensaje ha sido editado</p>
+           <p class="card-text" style="font-size: 12px;">Este mensaje ha sido editado</p>
           {{/if}}
         
         <div class="d-flex flex-direction-row justify-content-center">
