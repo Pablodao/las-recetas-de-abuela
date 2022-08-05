@@ -1,6 +1,6 @@
 
 
-<div style="height:90% margin: top 50px;">
+<div class="d-flex flex-direction-row mt-5 justify-content-center " >
 
 <div>
 
@@ -8,28 +8,20 @@
   <form action="/recipes/{{selectedRecipe._id}}/edit" method="POST" enctype="multipart/form-data">
   
 
-    <h1>Edita tu receta</h1>
-    
-
+    <h1 style="color: #CD5C5C ;">Edita tu receta</h1>
+  
     <div class=" mb-3">
       <label for="image" class="form-label ">Cambiar imágen</label>
       <input type="file" name="image" class="form-control" style="width: 500px"/>
     </div>
-
     <div class=" mb-2 row g-2">
       <label for="name">Nombre de la Receta: </label>
       <input type="text" name="name" value="{{selectedRecipe.name}}" style="width: 500px" />
     </div>
-
     <div class=" mt-4 mb-2 row g-2">
     <label for="instructions">Instrucciones</label>
     <input type="text" name="instructions" value="{{selectedRecipe.instructions}}" style="height: 50px; width: 400px ;" />
     </div>
-
-
-
-
-
     <div class="form-floating mb-4">
 
       <select  class="form-select" aria-label="Default select example" name="category" value="{{selectedRecipe.category}} " style="width: 500px ;" >
@@ -73,7 +65,9 @@
   <button class="btn btn-outline-success">Editar Receta</button>
  </form>
 </div>
-<div>
+
+
+<div class="mt-5">
 <div>
 
         <form action="/recipes/{{selectedRecipe._id}}/ingredients/edit" method="POST">
@@ -87,9 +81,6 @@
         </form>
 
     </div>
-
-
-
 
     <ul class="list-group list-group-flush mt-5 " style="width: 500px;">
 
@@ -115,14 +106,10 @@
                     </div>
 
                   {{/each}}
-
-              </div>   
-              
+              </div>    
     </ul>
 
 </div>
-     
-
 
 </div>
 

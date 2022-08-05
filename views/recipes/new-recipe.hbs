@@ -1,23 +1,26 @@
 <div class="position-absolute top-50 start-50 translate-middle">
 
-  <h1>Crea tu receta</h1>
+  <h1 style="color: #CD5C5C ;">Crea tu receta</h1>
 
   <form action="/recipes/create" method="POST" enctype="multipart/form-data">
     <div class="mb-2 row g-2">
       <label for="name">Nombre de la Receta: </label>
-      <input type="text" name="name" style="width: 500px ;"/>
+      <input type="text" name="name" style="width: 500px ;" />
     </div>
 
-   
-
-    <div class=" mb-3 row g-2">
-        <label for="image" class="form-label ">Imagen</label>
-        <input type="file" name="image" class="form-control" style="width: 300px ;"/>
+    <div class="mb-3 row g-2">
+      <label for="image" class="form-label">Imagen</label>
+      <input
+        type="file"
+        name="image"
+        class="form-control"
+        style="width: 300px ;"
+      />
     </div>
 
     <div class="mt-4 mb-4 row g-2">
       <label for="instructions">Instrucciones</label>
-        <input type="text" name="instructions"  style="width: 500px ;"/>
+      <input type="text" name="instructions" style="width: 500px ;" />
     </div>
 
     <div class="mb-4 row g-2">
@@ -45,14 +48,15 @@
       </select>
     </div>
 
-    <div class=" mb-2 row g-2">
-  <label for="preparationtime">Tiempo(min): </label>
-  <input type="text" name="preparationtime" style="width: 90px;" />
-</div>
-<div class="position-absolute top-100 start-50 translate-middle">
- <button  class="btn btn-outline-success mt-5" style=" width: 200px ;" >Crear Receta</button>
-</div>
-   
+    <div class="mb-2 row g-2">
+      <label for="preparationtime">Tiempo(min): </label>
+      <input type="text" name="preparationtime" style="width: 90px;" />
+    </div>
+    <div class="position-absolute top-100 start-50 translate-middle">
+      <button class="btn btn-outline-success mt-5" style=" width: 200px ;">Crear
+        Receta</button>
+    </div>
+
   </form>
 
 </div>
