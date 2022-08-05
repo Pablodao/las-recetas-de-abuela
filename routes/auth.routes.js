@@ -12,7 +12,7 @@ router.get("/signup", (req, res, next) => {
 // POST "/auth/signup" => Creates the user in the DB and redirect
 router.post("/signup", async (req, res, next) => {
   const { username, email, password } = req.body;
-  console.log("REQBODY SIGNUP", req.body);
+
   //* GC
   // Empty input
   if (
@@ -82,7 +82,7 @@ router.post("/signup", async (req, res, next) => {
         usernameErrorMessage: "El nombre de usuario ya se encuentra en uso",
       });
     }
-    console.log("TODAS LAS VALIDACIONES HAN SIDO SUPERADAS!");
+    
 
     // PASSWORD ENCRYPTION
     const salt = await bcrypt.genSalt(12);
@@ -111,7 +111,7 @@ router.get("/login", (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   const { access, password } = req.body;
   //Empty input
-  console.log("REQ.BODY", req.body);
+
   if (access === "") {
     res.render("./auth/login.hbs", {
       errorMessage: "Por favor, introduzca su nombre de usuario o email",
@@ -137,14 +137,14 @@ router.post("/login", async (req, res, next) => {
 
     //valid password
     const isPasswordValid = await bcrypt.compare(password, foundUser.password);
-    console.log(password);
+    
     if (isPasswordValid === false) {
       res.render("./auth/login.hbs", {
         passwordErrorMessage: "Constraseña inválida",
       });
       return;
     }
-    console.log("Dentro del try");
+
     req.session.user = {
       _id: foundUser._id,
       email: foundUser.email,
