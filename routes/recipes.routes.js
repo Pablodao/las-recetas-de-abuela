@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
 //GET "/recipes" => Render a view with all the recipes
 router.get("/category/:categoryType", async (req, res, next) => {
   const { categoryType } = req.params;
-  console.log(categoryType);
+
 
   try {
     const recipeList = await Recipe.find({ category: categoryType });
@@ -141,7 +141,7 @@ router.post("/:recipeId/ingredients/delete", async (req, res, next) => {
 // GET "/recipes/:recipeId/edit" => Render edit recipe form view
 router.get("/:recipeId/edit", async (req, res, next) => {
   const { recipeId } = req.params;
-  console.log(recipeId);
+
   try {
     const selectedRecipe = await Recipe.findById(recipeId);
     res.render("recipes/edit", { selectedRecipe });
@@ -252,7 +252,7 @@ router.get("/my-favourites", async (req, res, next) => {
       hasFavourites = true;
     }
 
-    console.log(favouriteList);
+   
     res.render("user/favourites.hbs", { favouriteList, hasFavourites });
   } catch (err) {
     next(err);
